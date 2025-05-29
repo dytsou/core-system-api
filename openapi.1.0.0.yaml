@@ -2,8 +2,20 @@ openapi: 3.1.0
 info:
   title: Core System API
   version: 1.0.0
-tags: []
-paths: {}
+tags:
+  - name: Healthz
+paths:
+  /api/healthz:
+    get:
+      operationId: Healthz_checkHealthz
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+        '404':
+          description: The server cannot find the requested resource.
+      tags:
+        - Healthz
 components:
   schemas:
     Versions:
