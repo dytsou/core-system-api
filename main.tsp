@@ -1,5 +1,6 @@
 import "@typespec/http";
 import "@typespec/versioning";
+import "./services/healthz.tsp";
 
 using Http;
 using Versioning;
@@ -8,7 +9,7 @@ using Versioning;
 @server("https://example.com", "Single server endpoint")
 @versioned(Versions)
 @route("/api")
-namespace Clustron;
+namespace CoreSystem;
 
 enum Versions {
   v1: "1.0.0",
