@@ -40,7 +40,7 @@ namespace Clustron.Auth {
   };
 
   @route("/auth/refresh/{refreshToken}")
-  @get
+  @post
   op refreshToken(
     @doc("The refresh token to use for refreshing the access token.")
     @path
