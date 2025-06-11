@@ -3,7 +3,7 @@ import "@typespec/http";
 using Http;
 
 @tag("Auth")
-namespace Clustron.Auth {
+namespace CoreSystem.Auth {
   enum OAuthProviders {
     google: "google",
   }
