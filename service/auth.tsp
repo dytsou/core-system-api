@@ -26,7 +26,7 @@ namespace CoreSystem.Auth {
     @path
     provider: OAuthProviders,
 
-    @doc("The callback URL of the OAuth2 login. [See details](https://clustron.atlassian.net/wiki/spaces/cd/pages/18219016/Backend+OAuth+JWT+Manual)")
+    @doc("The callback URL of the OAuth2 login. [See details](https://clustron.atlassian.net/wiki/spaces/CS/pages/41320449/Authentication+Process)")
     @query
     c: string,
 
