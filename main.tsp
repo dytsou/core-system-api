@@ -1,6 +1,7 @@
 import "@typespec/http";
 import "@typespec/versioning";
 import "./service/healthz.tsp";
+import "./service/auth.tsp";
 
 using Http;
 using Versioning;
