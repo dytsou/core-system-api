@@ -4,7 +4,60 @@ info:
   version: 1.0.0
 tags:
   - name: Healthz
+  - name: Auth
 paths:
+  /api/auth/login/oauth/{provider}:
+    get:
+      operationId: Auth_loginGoogle
+      parameters:
+        - name: provider
+          in: path
+          required: true
+          description: The OAuth2 provider to use for login.
+          schema:
+            $ref: '#/components/schemas/Auth.OAuthProviders'
+        - name: c
+          in: query
+          required: true
+          description: The callback URL of the OAuth2 login. [See details](https://clustron.atlassian.net/wiki/spaces/CS/pages/41320449/Authentication+Process)
+          schema:
+            type: string
+          explode: false
+        - name: r
+          in: query
+          required: false
+          description: The redirect URL for login callback.
+          schema:
+            type: string
+          explode: false
+      responses:
+        '302':
+          description: Redirection
+        '404':
+          description: The server cannot find the requested resource.
+      tags:
+        - Auth
+  /api/auth/refresh/{refreshToken}:
+    post:
+      operationId: Auth_refreshToken
+      parameters:
+        - name: refreshToken
+          in: path
+          required: true
+          description: The refresh token to use for refreshing the access token.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Auth.RefreshToken'
+        '404':
+          description: The server cannot find the requested resource.
+      tags:
+        - Auth
   /api/healthz:
     get:
       operationId: Healthz_checkHealthz
@@ -18,6 +71,26 @@ paths:
         - Healthz
 components:
   schemas:
+    Auth.OAuthProviders:
+      type: string
+      enum:
+        - google
+    Auth.RefreshToken:
+      type: object
+      required:
+        - accessToken
+        - expirationTime
+        - refreshToken
+      properties:
+        accessToken:
+          type: string
+          description: The access token and formatted as JWT
+        expirationTime:
+          type: integer
+          description: The expiration date of the refresh token.
+        refreshToken:
+          type: string
+          description: The new refresh token.
     Versions:
       type: string
       enum:
