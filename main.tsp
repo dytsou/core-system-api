@@ -17,6 +17,9 @@ enum Versions {
   v1: "1.0.0",
 }
 
+@format("uuid")
+scalar uuid extends string;
+
 @error
 @doc("Problem represents a problem detail as defined in RFC 7807")
 model ProblemDetail {

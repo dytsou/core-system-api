@@ -9,7 +9,10 @@ namespace CoreSystem.User {
   }
 
   model User {
-    @doc("The user's username, unique across the system.")
+    @doc("The user's unique identifier.")
+    id: uuid;
+
+    @doc("The user's username, can change, but must be unique across the system.")
     username: string;
 
     @doc("The user's name, usually the first and last name.")
