@@ -26,7 +26,7 @@ namespace CoreSystem.User {
   }
 
   @get
-  @route("/user/me")
+  @route("/users/me")
   @doc("Get the current user's information.")
   op getMe(): {
     @statusCode statusCode: 200;
