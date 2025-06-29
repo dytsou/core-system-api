@@ -1,0 +1,26 @@
+type: http_request
+model: http_request
+id: rq_pkhAtdNVBD
+createdAt: 2025-06-28T11:55:11.019480975
+updatedAt: 2025-06-28T11:59:40.800768604
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_hdjW6KQpKD
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+        "username": "cea4699a-c77e-4936-93df-ada671ab58e8"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: rzC4u2pzHB
+method: POST
+name: Internal Login
+sortPriority: 0.0
+url: ${[ BASE_URL ]}/api/auth/login/internal
+urlParameters: []
