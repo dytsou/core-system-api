@@ -34,20 +34,27 @@ namespace CoreSystem.Unit {
     updatedAt: utcDateTime;
   }
 
+  @doc("Base Request model, containing common fields for updating units and organizations.")
+  model BaseRequest {
+    @doc("The name of the unit or organization")
+    name: string;
+
+    @doc("A brief description of the unit or organization")
+    description: string;
+
+    @doc("Metadata for the unit or organization, can include additional information like contact details, address, etc.")
+    metadata: Record<string>;
+  }
+
   model Unit {
-    base: Base;
+    ...Base;
   }
 
   model Organization {
-    base: Base;
+    ...Base;
 
     @doc("Unique slug for the organization, used for URL routing and identification")
     slug: string;
-  }
-
-  union GenericUnit {
-    Unit,
-    Organization,
   }
 
   @doc("Model representing a member of a unit, linking unit and member by their unique identifiers")
@@ -77,52 +84,102 @@ namespace CoreSystem.Unit {
     childId: uuid;
   }
 
-  model CreateUnitInput {
-    base: Base;
-    type: UnitType;
-    slug?: string;
+  model CreateUnitRequest {
+    ...BaseRequest;
+    type: UnitType.unit;
   }
 
-  model UpdateUnitInput {
-    base: Base;
-    type: UnitType;
-    slug?: string;
+  model CreateOrgRequest {
+    ...BaseRequest;
+    type: UnitType.organization; // Type is fixed to organization for org creation
+    slug: string; // Slug is required for organizations
   }
 
-  model ParentChildInput {
+  model UpdateOrgRequest {
+    ...BaseRequest;
+    slug: string;
+  }
+
+  model UpdateUnitRequest {
+    ...BaseRequest;
+  }
+
+  model ParentChildRequest {
     parentId: uuid;
     childId: uuid;
   }
 
-  // --- CRUD Operations for Generic Units ---
+  // --- CRUD Operations for Orgs and Units ---
   @get
-  @route("/units")
+  @route("/orgs/{slug}/units")
   @doc("List all units, optionally filtered by parent unit ID")
-  op listSubUnits(
+  op listOrgSubUnits(
+    @path slug: string,
     @doc("The parent unit ID used to filter subunits by their parent-child relationship")
     @query
     parentId?: uuid,
   ): Unit[];
 
   @get
-  @route("/units/{id}")
-  @doc("Get a specific unit or organization by its unique identifier")
-  op getUnitById(@path id: uuid): GenericUnit;
+  @route("/orgs/{slug}/units/{id}/subunits")
+  @doc("List all units, optionally filtered by parent unit ID")
+  op listSubUnits(
+    @path slug: string,
+    @path id: uuid,
+    @doc("The parent unit ID used to filter subunits by their parent-child relationship")
+    @query
+    parentId?: uuid,
+  ): Unit[];
+
+  @get
+  @route("/orgs/{slug}")
+  @doc("Get a specific unit with the slug of its organization by its unique identifier")
+  op getOrgBySlug(
+    @path slug: string,
+  ): Organization;
+
+  @get
+  @route("/orgs/{slug}/units/{id}")
+  @doc("Get a specific unit with the slug of its organization by its unique identifier")
+  op getUnitById(
+    @path slug: string,
+    @path id: uuid
+  ): Unit;
 
   @post
-  @route("/units")
+  @route("/orgs")
   @doc("Create a new unit or organization")
-  op createUnit(@body input: CreateUnitInput): GenericUnit;
+  op createOrg(@body Request: CreateOrgRequest): Organization;
+
+  @post
+  @route("/orgs/{slug}/units")
+  @doc("Create a new unit or organization")
+  op createUnit(@path slug: string, @body Request: CreateUnitRequest): Unit;
 
   @put
-  @route("/units/{id}")
+  @route("/orgs/{slug}")
   @doc("Update an existing unit or organization by its unique identifier")
-  op updateUnit(@path id: uuid, @body input: UpdateUnitInput): GenericUnit;
+  op updateOrg(@path slug: string, @body Request: UpdateOrgRequest): Organization;
+
+  @put
+  @route("/orgs/{slug}/units/{id}")
+  @doc("Update an existing unit or organization by its unique identifier")
+  op updateUnit(@path slug: string, @path id: uuid, @body Request: UpdateUnitRequest): Unit;
 
   @delete
-  @route("/units/{id}")
-  @doc("Delete a specific unit or organization by its unique identifier")
-  op deleteUnit(@path id: uuid): {
+  @route("/orgs/{slug}")
+  @doc("Delete a specific organization by its unique identifier")
+  op deleteOrg(@path slug: string): {
+    @statusCode statusCode: 204;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: string;
+  };
+
+  @delete
+  @route("/orgs/{slug}/units/{id}")
+  @doc("Delete a specific unit of an organization by its unique identifier")
+  op deleteUnit(@path slug: string, @path id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
@@ -131,19 +188,19 @@ namespace CoreSystem.Unit {
 
   // --- Parent-Child CRUD ---
   @get
-  @route("/units/relations/{parentId}")
+  @route("/orgs/relations/{parentId}")
   @doc("List all child units under a specified parent unit")
   op listChildUnits(@path parentId: uuid): uuid[];
 
   @post
-  @route("/units/relations")
+  @route("/orgs/relations")
   @doc("Create a new parent-child relationship between units by linking them")
-  op addParentChild(@body input: ParentChildInput): ParentChild;
+  op addParentChild(@body Request: ParentChildRequest): ParentChild;
 
   @delete
-  @route("/units/relations")
+  @route("/orgs/relations")
   @doc("Remove a parent-child relationship between units by unlinking them")
-  op removeParentChild(@body input: ParentChildInput): {
+  op removeParentChild(@body Request: ParentChildRequest): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
