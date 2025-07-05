@@ -6,6 +6,7 @@ tags:
   - name: Healthz
   - name: Auth
   - name: User
+  - name: Forms
 paths:
   /api/auth/login/oauth/{provider}:
     get:
@@ -59,6 +60,192 @@ paths:
           description: The server cannot find the requested resource.
       tags:
         - Auth
+  /api/forms:
+    post:
+      operationId: Forms_createForm
+      description: Create a new form.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.FormRequest'
+    get:
+      operationId: Forms_listForms
+      description: List all existing forms.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Forms
+  /api/forms/{formId}/questions:
+    post:
+      operationId: Forms_createQuestion
+      description: Create a new question for a specific form.
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Question'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.QuestionRequest'
+    get:
+      operationId: Forms_listQuestions
+      description: List all the questions of a specific form.
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Forms.Question'
+      tags:
+        - Forms
+  /api/forms/{formId}/questions/{questionId}:
+    put:
+      operationId: Forms_updateQuestion
+      description: Update an existing question by its unique identifier.
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Question'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.QuestionRequest'
+    delete:
+      operationId: Forms_deleteQuestion
+      description: Delete an existing question by its unique identifier.
+      parameters:
+        - name: formId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      tags:
+        - Forms
+  /api/forms/{id}:
+    put:
+      operationId: Forms_updateForm
+      description: Update an existing form by its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.FormRequest'
+    delete:
+      operationId: Forms_deleteForm
+      description: Delete an existing form by its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      tags:
+        - Forms
+    get:
+      operationId: Forms_getFormById
+      description: Get a specific form by its unique identifier.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Forms
   /api/healthz:
     get:
       operationId: Healthz_checkHealthz
@@ -112,6 +299,129 @@ components:
         refreshToken:
           type: string
           description: The new refresh token.
+    Forms.Form:
+      type: object
+      required:
+        - id
+        - title
+        - description
+        - lastEdit
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The form's unique identifier.
+        title:
+          type: string
+          description: The title of the form.
+        description:
+          type: string
+          description: The description written in the form to show user info.
+        lastEdit:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The user who last editted the form.
+        createdAt:
+          type: string
+          format: date-time
+          description: The creation timestamp of the form.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The last updated timestamp of the form
+      description: The structure of a form.
+    Forms.FormRequest:
+      type: object
+      required:
+        - title
+        - description
+      properties:
+        title:
+          type: string
+          description: The title of the form.
+        description:
+          type: string
+          description: The description of the form.
+      description: The request body for creating/updating a form.
+    Forms.Question:
+      type: object
+      required:
+        - id
+        - formId
+        - required
+        - type
+        - label
+        - description
+        - order
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The question's unique identifier.
+        formId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: "The form's id that the question belongs to. "
+        required:
+          type: boolean
+          description: Whether the question is required to answer or not.
+        type:
+          allOf:
+            - $ref: '#/components/schemas/Forms.QuestionTypes'
+          description: The type of the question.
+        label:
+          type: string
+          description: What is the question.
+        description:
+          type: string
+          description: More details of this question.
+        order:
+          type: integer
+          format: int32
+          description: What is the number of this question in the form.
+        createdAt:
+          type: string
+          format: date-time
+          description: The creation timestamp of the question.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The updated timestamp of the question.
+      description: The structure of a question.
+    Forms.QuestionRequest:
+      type: object
+      required:
+        - required
+        - type
+        - label
+        - description
+        - order
+      properties:
+        required:
+          type: boolean
+        type:
+          $ref: '#/components/schemas/Forms.QuestionTypes'
+        label:
+          type: string
+        description:
+          type: string
+        order:
+          type: integer
+          format: int32
+      description: The request body for creating/updating a question.
+    Forms.QuestionTypes:
+      type: string
+      enum:
+        - short_text
+        - long_text
+        - single_choice
+        - multiple_choice
+        - date
+      description: The current types of question
     NotFound:
       type: object
       required:
