@@ -31,7 +31,7 @@ namespace CoreSystem.Forms {
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
 
-    @doc("The last updated timestamp of the unit or organization")
+    @doc("The last updated timestamp of the form")
     updatedAt: utcDateTime;
   }
 
@@ -93,7 +93,7 @@ namespace CoreSystem.Forms {
   @put
   op updateForm(@path id: uuid, @body updateFormRequest: FormRequest): Form;
 
-  @doc("Update an existing form by its unique identifier.")
+  @doc("Delete an existing form by its unique identifier.")
   @route("/forms/{id}")
   @delete
   op deleteForm(@path id: uuid): {
