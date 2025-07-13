@@ -4,6 +4,7 @@ import "./service/healthz.tsp";
 import "./service/auth.tsp";
 import "./service/user.tsp";
 import "./service/forms.tsp";
+import "./service/responses.tsp";
 
 using Http;
 using Versioning;
