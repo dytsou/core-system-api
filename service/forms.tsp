@@ -42,6 +42,9 @@ namespace CoreSystem.Forms {
     singleChoice: "single_choice",
     multipleChoice: "multiple_choice",
     date: "date",
+    file: "file",
+    array: "array",
+    grid: "grid",
   }
 
   @doc("The structure of a question.")
