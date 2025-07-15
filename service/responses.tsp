@@ -61,11 +61,8 @@ namespace CoreSystem.Responses {
     @doc("The question being answered.")
     questionId: uuid;
 
-    @doc("The type of answer.")
-    answerType: AnswerType;
-
-    @doc("The answer value (format depends on answerType).")
-    answerValue: string;
+    @doc("The answer value (format depends on type).")
+    value: string;
   }
 
   @doc("Request model for submitting a complete form response")
