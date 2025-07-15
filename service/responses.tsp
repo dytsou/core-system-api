@@ -72,9 +72,6 @@ namespace CoreSystem.Responses {
   model SubmitFormResponseRequest {
     @doc("All answers for this form submission.")
     answers: AnswerRequest[];
-
-    @doc("User ID for authenticated submissions.")
-    submittedBy: uuid;
   }
 
   @doc("Complete response with all related data")
