@@ -61,7 +61,7 @@ namespace CoreSystem.Responses {
     @doc("The question being answered.")
     questionId: uuid;
 
-    @doc("The answer value (format depends on type).")
+    @doc("The answer value (format depends on questionType from questionId).")
     value: string;
   }
 
