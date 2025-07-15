@@ -43,11 +43,11 @@ namespace CoreSystem.Responses {
     @doc("The question this answer is for.")
     questionId: uuid;
 
-    @doc("The type of answer, determines how to parse answerValue.")
-    answerType: AnswerType;
+    @doc("The type of answer, determines how to parse value.")
+    type: AnswerType;
 
-    @doc("The answer value stored as string, parsed based on answerType.")
-    answerValue: string;
+    @doc("The answer value stored as string, parsed based on type.")
+    value: string;
 
     @doc("The creation timestamp of the answer.")
     createdAt: utcDateTime;
