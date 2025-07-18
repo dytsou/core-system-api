@@ -22,9 +22,6 @@ namespace CoreSystem.Responses {
     @doc("The form that this response belongs to.")
     formId: uuid;
 
-    @doc("The user who submitted this response.")
-    submittedBy: uuid;
-
     @doc("The creation timestamp of the response.")
     createdAt: utcDateTime;
 
