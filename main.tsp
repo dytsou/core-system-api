@@ -5,6 +5,7 @@ import "./service/auth.tsp";
 import "./service/user.tsp";
 import "./service/forms.tsp";
 import "./service/responses.tsp";
+import "./service/inbox.tsp";
 
 using Http;
 using Versioning;
