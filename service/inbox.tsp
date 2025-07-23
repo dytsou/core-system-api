@@ -5,29 +5,28 @@ using Http;
 
 @tag("Inbox")
 namespace CoreSystem.Inbox {
-  
   @doc("The structure of a user inbox message with customized flag.")
   model UserInboxMessage {
     @doc("The userId or the orgId of the inbox owner.")
     id: uuid;
-    
+
     @doc("The inbox message this user inbox message refers to.")
     message: InboxMessage;
-    
+
     @doc("The type of the user inbox message.")
     type: UserInboxMessageFilters;
   }
-  
+
   @doc("The filters that can be applied by the user for their inbox messages.")
-  model UserInboxMessageFilters{
+  model UserInboxMessageFilters {
     @doc("Indicates whether the user has read the inbox message.")
-    isRead: boolean;
-  
+    isRead: boolean = false;
+
     @doc("User can mark the inbox message as starred.")
-    isStarred: boolean;
-  
+    isStarred: boolean = false;
+
     @doc("User can archive the inbox message and hide it from the inbox view.")
-    isArchived: boolean;
+    isArchived: boolean = false;
   }
 
   alias contentType = "text" | "form";
@@ -76,12 +75,12 @@ namespace CoreSystem.Inbox {
   ): {
     @statusCode statusCode: 200;
     @body body: {
-      @pageItems "items": UserInboxMessage[],
-      "totalPages": int32,
-      "totalItems": int32,
-      "currentPage": int32,
-      "pageSize": int32,
-      "hasNextPage": boolean
+      @pageItems items: UserInboxMessage[];
+      totalPages: int32;
+      totalItems: int32;
+      currentPage: int32;
+      pageSize: int32;
+      hasNextPage: boolean;
     };
   } | errorResponse;
 
