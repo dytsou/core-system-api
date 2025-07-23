@@ -112,9 +112,10 @@ namespace CoreSystem.Unit {
   // --- CRUD Operations for Orgs and Units ---
   @get
   @route("/orgs/{slug}/units")
-  @doc("List all units, optionally filtered by parent unit ID")
+  @doc("List all units, optionally filtered by parent organization ID")
   op listOrgSubUnits(
     @path slug: string,
+
     @doc("The parent unit ID used to filter subunits by their parent-child relationship")
     @query
     parentId?: uuid,
@@ -123,28 +124,52 @@ namespace CoreSystem.Unit {
   @get
   @route("/orgs/{slug}/units/{id}/subunits")
   @doc("List all units, optionally filtered by parent unit ID")
-  op listSubUnits(
+  op listUnitSubUnits(
     @path slug: string,
     @path id: uuid,
+
     @doc("The parent unit ID used to filter subunits by their parent-child relationship")
     @query
     parentId?: uuid,
   ): Unit[];
 
   @get
+  @route("/orgs/{slug}/unit-ids")
+  @doc("List all unit IDs, optionally filtered by parent organization ID")
+  op listOrgSubUnitIds(
+    @path slug: string,
+
+    @doc("The parent unit ID used to filter subunits by their parent-child relationship")
+    @query
+    parentId?: uuid,
+  ): uuid[];
+
+  @get
+  @route("/orgs/{slug}/units/{id}/subunit-ids")
+  @doc("List all unit IDs, optionally filtered by parent unit ID")
+  op listUnitSubUnitIds(
+    @path slug: string,
+    @path id: uuid,
+
+    @doc("The parent unit ID used to filter subunits by their parent-child relationship")
+    @query
+    parentId?: uuid,
+  ): uuid[];
+
+  @get
+  @route("/orgs")
+  @doc("Get all organizations")
+  op getAllOrganizations(): Organization[];
+
+  @get
   @route("/orgs/{slug}")
   @doc("Get a specific unit with the slug of its organization by its unique identifier")
-  op getOrgBySlug(
-    @path slug: string,
-  ): Organization;
+  op getOrgById(@path slug: string): Organization;
 
   @get
   @route("/orgs/{slug}/units/{id}")
   @doc("Get a specific unit with the slug of its organization by its unique identifier")
-  op getUnitById(
-    @path slug: string,
-    @path id: uuid
-  ): Unit;
+  op getUnitById(@path slug: string, @path id: uuid): Unit;
 
   @post
   @route("/orgs")
@@ -159,12 +184,19 @@ namespace CoreSystem.Unit {
   @put
   @route("/orgs/{slug}")
   @doc("Update an existing unit or organization by its unique identifier")
-  op updateOrg(@path slug: string, @body Request: UpdateOrgRequest): Organization;
+  op updateOrg(
+    @path slug: string,
+    @body Request: UpdateOrgRequest,
+  ): Organization;
 
   @put
   @route("/orgs/{slug}/units/{id}")
   @doc("Update an existing unit or organization by its unique identifier")
-  op updateUnit(@path slug: string, @path id: uuid, @body Request: UpdateUnitRequest): Unit;
+  op updateUnit(
+    @path slug: string,
+    @path id: uuid,
+    @body Request: UpdateUnitRequest,
+  ): Unit;
 
   @delete
   @route("/orgs/{slug}")
