@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_KVpSfAxhsv
+createdAt: 2025-07-14T17:49:18.355582
+updatedAt: 2025-07-14T18:02:39.093156
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_ogRn6nMXtw
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: GetByID
+sortPriority: 1000.0
+url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}
+urlParameters: []
