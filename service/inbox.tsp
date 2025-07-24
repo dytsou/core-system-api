@@ -64,14 +64,14 @@ namespace CoreSystem.Inbox {
     updatedAt: utcDateTime;
   }
 
-  @doc("Show the preview of all the inbox messages with pagination.")
+  @doc("Get all the preview of the inbox messages with pagination.")
   @route("/inbox")
   @get
   @list
-  op listInboxMessages(
+  op getInboxMessages(
     @query filters?: UserInboxMessageFilters,
     @query @pageIndex page?: int32 = 1,
-    @query @pageSize perPage?: int32 = 10,
+    @query @pageSize size?: int32 = 10,
   ): {
     @statusCode statusCode: 200;
     @body body: {
@@ -84,10 +84,10 @@ namespace CoreSystem.Inbox {
     };
   } | errorResponse;
 
-  @doc("Show the full content of the inbox message.")
+  @doc("Get the full content of a inbox message.")
   @route("/inbox/{id}")
   @get
-  op listInboxMessage(@path id: uuid): {
+  op getInboxMessage(@path id: uuid): {
     @statusCode statusCode: 200;
     @body message: UserInboxMessage;
   } | errorResponse;
