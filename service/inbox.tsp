@@ -36,8 +36,8 @@ namespace CoreSystem.Inbox {
     @doc("The unique identifier of an inbox message.")
     id: uuid;
 
-    @doc("Sender may be the org-{orgId} or unit-{unitId}.")
-    postedBy: uuid;
+    @doc("Sender may be the 'org-{orgId}' or 'unit-{unitId}'.")
+    postedBy: string;
 
     @doc("The title of the inbox message.")
     title: string;
