@@ -20,13 +20,13 @@ namespace CoreSystem.Inbox {
   @doc("The filters that can be applied by the user for their inbox messages.")
   model UserInboxMessageFilters {
     @doc("Indicates whether the user has read the inbox message.")
-    isRead: boolean = false;
+    isRead: boolean;
 
     @doc("User can mark the inbox message as starred.")
-    isStarred: boolean = false;
+    isStarred: boolean;
 
     @doc("User can archive the inbox message and hide it from the inbox view.")
-    isArchived: boolean = false;
+    isArchived: boolean;
   }
 
   alias contentType = "text" | "form";
