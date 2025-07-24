@@ -20,13 +20,13 @@ namespace CoreSystem.Inbox {
   @doc("The filters that can be applied by the user for their inbox messages.")
   model UserInboxMessageFilters {
     @doc("Indicates whether the user has read the inbox message.")
-    isRead: boolean;
+    isRead: boolean = false;
 
     @doc("User can mark the inbox message as starred.")
-    isStarred: boolean;
+    isStarred: boolean = false;
 
     @doc("User can archive the inbox message and hide it from the inbox view.")
-    isArchived: boolean;
+    isArchived: boolean = false;
   }
 
   alias contentType = "text" | "form";
@@ -69,7 +69,9 @@ namespace CoreSystem.Inbox {
   @get
   @list
   op getInboxMessages(
-    @query filters?: UserInboxMessageFilters,
+    @query isRead?: boolean = false,
+    @query isStarred?: boolean = false,
+    @query isArchived?: boolean = false,
     @query @pageIndex page?: int32 = 1,
     @query @pageSize size?: int32 = 10,
   ): {
