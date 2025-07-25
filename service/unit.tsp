@@ -225,9 +225,9 @@ namespace CoreSystem.Unit {
   op addParentChild(@body Request: ParentChildRequest): ParentChild;
 
   @delete
-  @route("/orgs/relations/parent-id/{p-id}/child-id/{c-id}")
+  @route("/orgs/relations/parent-id/{pID}/child-id/{cID}")
   @doc("Remove a parent-child relationship between units by unlinking them")
-  op removeParentChild(@body Request: ParentChildRequest): {
+  op removeParentChild(@path pID: string, @path cID: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
