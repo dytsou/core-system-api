@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_SLUcBkGMre
 createdAt: 2025-07-14T18:06:15.506836
-updatedAt: 2025-07-23T13:51:52.504758
+updatedAt: 2025-07-25T13:31:34.180983
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_QniwBWfMQd
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: DELETE
 name: Delete
 sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/orgs/relations/parent_id/${[ PID ]}/child_id/${[ CID ]}
+url: ${[ BASE_URL ]}/api/orgs/relations/parent-id/${[ PID ]}/child-id/${[ CID ]}
 urlParameters: []

@@ -219,18 +219,13 @@ namespace CoreSystem.Unit {
   };
 
   // --- Parent-Child CRUD ---
-  @get
-  @route("/orgs/relations/{parentId}")
-  @doc("List all child units under a specified parent unit")
-  op listChildUnits(@path parentId: uuid): uuid[];
-
   @post
   @route("/orgs/relations")
   @doc("Create a new parent-child relationship between units by linking them")
   op addParentChild(@body Request: ParentChildRequest): ParentChild;
 
   @delete
-  @route("/orgs/relations")
+  @route("/orgs/relations/parent-id/{p-id}/child-id/{c-id}")
   @doc("Remove a parent-child relationship between units by unlinking them")
   op removeParentChild(@body Request: ParentChildRequest): {
     @statusCode statusCode: 204;
