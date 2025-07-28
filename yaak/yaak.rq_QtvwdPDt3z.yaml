@@ -1,0 +1,29 @@
+type: http_request
+model: http_request
+id: rq_QtvwdPDt3z
+createdAt: 2025-07-14T18:05:16.271791
+updatedAt: 2025-07-17T08:01:32.761324
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_T9fwtbfqi4
+authentication: {}
+authenticationType: null
+body:
+  form:
+  - enabled: true
+    name: slug
+    value: nycu-sdc
+  - enabled: true
+    name: ''
+    value: ''
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: GetSubUnits
+sortPriority: 3000.0
+url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units
+urlParameters:
+- enabled: true
+  name: ''
+  value: ''
+  id: 4uJWH8zpCt

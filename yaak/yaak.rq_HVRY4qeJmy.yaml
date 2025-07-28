@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_HVRY4qeJmy
+createdAt: 2025-07-14T17:43:02.400756
+updatedAt: 2025-07-23T07:41:44.951734
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_T9fwtbfqi4
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: DELETE
+name: Delete
+sortPriority: 6000.0
+url: ${[ BASE_URL ]}/api/orgs/hitcon
+urlParameters: []
