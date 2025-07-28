@@ -25,8 +25,11 @@ namespace CoreSystem.Forms {
     @doc("The description written in the form to show user info.")
     description: string;
 
+    @doc("The unit this form belongs to.")
+    unitId: uuid;
+
     @doc("The user who last editted the form.")
-    lastEdit: uuid;
+    lastEditor: uuid;
 
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
@@ -83,10 +86,20 @@ namespace CoreSystem.Forms {
     order: int32;
   }
 
+  #deprecated "This is for debug, use createUnitForm"
   @doc("Create a new form.")
   @route("/forms")
   @post
   op createForm(@body createFormRequest: FormRequest): Form;
+
+  @doc("Create a new form under a unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @post
+  op createUnitForm(
+    @path slug: string,
+    @path unitId: uuid,
+    @body createFormRequest: FormRequest,
+  ): Form;
 
   @doc("Update an existing form by its unique identifier.")
   @route("/forms/{id}")
@@ -135,4 +148,9 @@ namespace CoreSystem.Forms {
   @route("/forms/{formId}/questions")
   @get
   op listQuestions(@path formId: uuid): Question[];
+
+  @doc("List forms under a specific unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @get
+  op listFormsByUnit(@path slug: string, @path unitId: uuid): Form[];
 }
