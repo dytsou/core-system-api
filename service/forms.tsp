@@ -86,12 +86,6 @@ namespace CoreSystem.Forms {
     order: int32;
   }
 
-  #deprecated "This is for debug, use createUnitForm under unit."
-  @doc("Create a new form.")
-  @route("/forms")
-  @post
-  op createForm(@body createFormRequest: FormRequest): Form;
-
   @doc("Update an existing form by its unique identifier.")
   @route("/forms/{id}")
   @put
