@@ -1,0 +1,27 @@
+type: http_request
+model: http_request
+id: rq_Jg7jCuCzkm
+createdAt: 2025-07-29T15:54:50.581535500
+updatedAt: 2025-07-29T16:40:19.832141700
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_ogRn6nMXtw
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "title":"Enter SDC Form",
+      "description":"If you want to join us, just fill in this form!"
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: MxWspimSNg
+method: POST
+name: CreateFormUnderUnit
+sortPriority: 6000.0
+url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}/forms
+urlParameters: []

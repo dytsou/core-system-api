@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_QgfA8E6RHc
+createdAt: 2025-07-23T20:55:56.169623800
+updatedAt: 2025-07-29T10:53:31.682658800
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_HGyK8hFV8U
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: DELETE
+name: Delete
+sortPriority: 3000.0
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}/questions/${[ questionId ]}
+urlParameters: []
