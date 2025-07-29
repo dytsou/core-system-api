@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_GYiejw5uAA
 createdAt: 2025-06-28T12:00:37.500841948
-updatedAt: 2025-06-28T12:01:01.429112752
+updatedAt: 2025-07-29T15:50:18.447868700
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_hdjW6KQpKD
 authentication: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: POST
 name: Refresh Token
-sortPriority: 999.9999
+sortPriority: 1000.0
 url: ${[ BASE_URL ]}/api/auth/refresh
 urlParameters: []

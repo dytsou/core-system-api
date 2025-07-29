@@ -1,0 +1,18 @@
+type: http_request
+model: http_request
+id: rq_roRMxQTRv2
+createdAt: 2025-07-23T20:45:28.984698200
+updatedAt: 2025-07-23T20:49:15.435771100
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_rVcfbAVmZh
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers: []
+method: GET
+name: Get one Form
+sortPriority: 4000.0
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}
+urlParameters: []

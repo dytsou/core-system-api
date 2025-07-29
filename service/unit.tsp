@@ -1,6 +1,8 @@
 import "@typespec/http";
+import "./forms.tsp";
 
 using Http;
+using CoreSystem.Forms;
 
 @tag("Unit")
 namespace CoreSystem.Unit {
@@ -233,4 +235,19 @@ namespace CoreSystem.Unit {
     @statusCode statusCode: 404;
     @body error: string;
   };
+
+  // --- Creation and List forms under Unit ---
+  @doc("Create a new form under a unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @post
+  op createUnitForm(
+    @path slug: string,
+    @path unitId: uuid,
+    @body createFormRequest: FormRequest,
+  ): Form;
+
+  @doc("List forms under a specific unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @get
+  op listFormsByUnit(@path slug: string, @path unitId: uuid): Form[];
 }

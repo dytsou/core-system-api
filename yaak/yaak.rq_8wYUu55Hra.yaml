@@ -1,10 +1,10 @@
 type: http_request
 model: http_request
-id: rq_KVpSfAxhsv
-createdAt: 2025-07-14T17:49:18.355582
-updatedAt: 2025-07-29T16:40:19.783830500
+id: rq_8wYUu55Hra
+createdAt: 2025-07-23T20:54:02.476828900
+updatedAt: 2025-07-29T10:53:31.657893400
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_ogRn6nMXtw
+folderId: fl_HGyK8hFV8U
 authentication: {}
 authenticationType: null
 body: {}
@@ -12,7 +12,7 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: GetByID
+name: List
 sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}/questions
 urlParameters: []
