@@ -7,7 +7,7 @@ using Http;
 namespace CoreSystem.Inbox {
   @doc("The structure of a user inbox message with customized flag.")
   model UserInboxMessage {
-    @doc("The userId or the orgId of the inbox owner.")
+    @doc("The userId of the inbox owner.")
     id: uuid;
 
     @doc("The inbox message this user inbox message refers to.")
@@ -36,28 +36,22 @@ namespace CoreSystem.Inbox {
     @doc("The unique identifier of an inbox message.")
     id: uuid;
 
-    @doc("Sender may be the 'org-{orgId}' or 'unit-{unitId}'.")
-    postedBy: string;
+    @doc("The sender's unitId. If not specified, defaults to the uuid referring to a unit with the organization's name.")
+    postedBy: uuid;
 
     @doc("The title of the inbox message.")
     title: string;
 
     @doc("The subtitle of the inbox message.")
-    subtitle: string;
+    subtitle?: string;
 
-    @doc("To decide whether to reference the content from Text API or Forms API.")
+    @doc("The type of the content.")
     type: contentType;
 
-    @doc("(Optional) The identifier of the text content in markdown.")
-    textId?: uuid;
+    @doc("(Optional) The identifier of the content referenced by the contentType.")
+    contentId?: uuid;
 
-    @doc("(Optional) The identifier of the form content.")
-    formId?: uuid;
-
-    @doc("(Optional) The due date of the inbox message.")
-    dueDate?: utcDateTime;
-
-    @doc("The post timestamp of the inbox message.")
+    @doc("The create timestamp of the inbox message.")
     createdAt: utcDateTime;
 
     @doc("The last updated timestamp of the inbox message.")
