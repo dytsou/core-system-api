@@ -62,7 +62,7 @@ namespace CoreSystem.Responses {
   @doc("Response model for a question with its answer")
   model QuestionAnswerForGetResponse {
     @doc("The question details.")
-    question: CoreSystem.Forms.Question;
+    questionId: uuid;
 
     @doc("The answer value.")
     answer: string;
@@ -80,7 +80,7 @@ namespace CoreSystem.Responses {
     submittedBy: uuid;
 
     @doc("All questions with their answers for this response.")
-    questions: QuestionAnswerForGetResponse[];
+    questionAnswerPairs: QuestionAnswerForGetResponse[];
 
     @doc("The creation timestamp of the response.")
     createdAt: utcDateTime;
