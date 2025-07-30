@@ -88,6 +88,21 @@ namespace CoreSystem.Inbox {
     @body message: UserInboxMessage;
   } | errorResponse;
 
+  @doc("Update flags for the user inbox message.")
+  @route("/inbox/{id}")
+  @put
+  op updateInboxMessageFlag(
+    @path id: uuid,
+    @body body:{
+      isRead?: boolean = false,
+      isStarred?: boolean = false,
+      isArchived?: boolean = false
+    }
+    ): {
+    @statusCode statusCode: 200;
+    @body message: UserInboxMessage;
+  } | errorResponse;
+
   alias errorResponse = {
     @statusCode statusCode: 401;
     @body error: Unauthorized;
