@@ -1,0 +1,3 @@
+apis:
+  tsp-output/schema/openapi.1.0.0.yaml:
+    alias: core-system-api

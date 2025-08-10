@@ -7,7 +7,7 @@ using Http;
 namespace CoreSystem.Inbox {
   @doc("The structure of a user inbox message with customized flag.")
   model UserInboxMessage {
-    @doc("The userId of the inbox owner.")
+    @doc("The id of this UserInboxMessage.")
     id: uuid;
 
     @doc("The inbox message this user inbox message refers to.")
@@ -93,12 +93,12 @@ namespace CoreSystem.Inbox {
   @put
   op updateInboxMessageFlag(
     @path id: uuid,
-    @body body:{
-      isRead?: boolean = false,
-      isStarred?: boolean = false,
-      isArchived?: boolean = false
-    }
-    ): {
+    @body body: {
+      isRead?: boolean = false;
+      isStarred?: boolean = false;
+      isArchived?: boolean = false;
+    },
+  ): {
     @statusCode statusCode: 200;
     @body message: UserInboxMessage;
   } | errorResponse;
