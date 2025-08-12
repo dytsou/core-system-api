@@ -105,6 +105,16 @@ namespace CoreSystem.Unit {
     orgId: uuid;
   }
 
+  model OrgMemberRequest {
+    orgId: uuid;
+    memberId: uuid;
+  }
+
+  model UnitMemberRequest {
+    unitId: uuid;
+    memberId: uuid;
+  }
+
   // --- CRUD Operations for Orgs and Units ---
   @get
   @route("/orgs/{slug}/units")
@@ -224,6 +234,37 @@ namespace CoreSystem.Unit {
   @route("/orgs/relations/parent-id/{parent_id}/child-id/{child_id}")
   @doc("Remove a parent-child relationship between units by unlinking them")
   op removeParentChild(@path parent_id: string, @path child_id: uuid): {
+    @statusCode statusCode: 204;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: string;
+  };
+
+  // --- Member CRUD ---
+  @post
+  @route("/orgs/members")
+  @doc("Add a member to an organization")
+  op addOrgMember(@body Request: OrgMemberRequest): OrgMember;
+
+  @delete
+  @route("/orgs/members/org-id/{org_id}/member-id/{member_id}")
+  @doc("Remove an organization-member relationship")
+  op removeOrgMember(@path org_id: uuid, @path member_id: uuid): {
+    @statusCode statusCode: 204;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: string;
+  };
+
+  @post
+  @route("/orgs/{slug}/units/members")
+  @doc("Add a member to an unit")
+  op addUnitMember(@path slug: string, @body Request: UnitMemberRequest): UnitMember;
+
+  @delete
+  @route("/orgs/{slug}/units/members/unit-id/{unit_id}/member-id/{member_id}")
+  @doc("Remove an unit-member relationship")
+  op removeUnitMember(@path slug: string, @path unit_id: uuid, @path member_id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
