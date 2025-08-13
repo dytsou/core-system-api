@@ -106,12 +106,10 @@ namespace CoreSystem.Unit {
   }
 
   model OrgMemberRequest {
-    orgId: uuid;
     memberId: uuid;
   }
 
   model UnitMemberRequest {
-    unitId: uuid;
     memberId: uuid;
   }
 
@@ -242,14 +240,19 @@ namespace CoreSystem.Unit {
 
   // --- Member CRUD ---
   @post
-  @route("/orgs/members")
+  @route("/orgs/{slug}/members")
   @doc("Add a member to an organization")
-  op addOrgMember(@body Request: OrgMemberRequest): OrgMember;
+  op addOrgMember(@path slug: string, @body Request: OrgMemberRequest): OrgMember;
+
+  @get
+  @route("/orgs/{slug}/members")
+  @doc("List all members of an organization")
+  op listOrgMembers(@path slug: string): User[];
 
   @delete
-  @route("/orgs/members/org-id/{org_id}/member-id/{member_id}")
+  @route("/orgs/{slug}/members/{member_id}")
   @doc("Remove an organization-member relationship")
-  op removeOrgMember(@path org_id: uuid, @path member_id: uuid): {
+  op removeOrgMember(@path slug: string, @path member_id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
@@ -257,14 +260,20 @@ namespace CoreSystem.Unit {
   };
 
   @post
-  @route("/orgs/{slug}/units/members")
+  @route("/orgs/{slug}/units/{id}/members")
   @doc("Add a member to an unit")
-  op addUnitMember(@path slug: string, @body Request: UnitMemberRequest): UnitMember;
+  op addUnitMember(@path slug: string, @path id: uuid, @body Request: UnitMemberRequest): UnitMember;
+
+  @get
+  @route("/orgs/{slug}/units/{id}/members")
+  @doc("List all members of a specific unit")
+  op listUnitMembers(@path slug: string, @path id: uuid): User[];
+
 
   @delete
-  @route("/orgs/{slug}/units/members/unit-id/{unit_id}/member-id/{member_id}")
+  @route("/orgs/{slug}/units/{id}/members/{member_id}")
   @doc("Remove an unit-member relationship")
-  op removeUnitMember(@path slug: string, @path unit_id: uuid, @path member_id: uuid): {
+  op removeUnitMember(@path slug: string, @path id: uuid, @path member_id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;

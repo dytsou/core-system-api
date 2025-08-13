@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_apCoKxaZeS
 createdAt: 2025-07-14T18:02:25.596507
-updatedAt: 2025-07-29T16:40:19.791357100
+updatedAt: 2025-08-13T06:35:15.756828
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_ogRn6nMXtw
 authentication: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: GET
 name: GetSubUnits
-sortPriority: 2000.0
+sortPriority: 3000.0
 url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}/subunits
 urlParameters: []

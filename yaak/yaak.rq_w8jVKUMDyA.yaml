@@ -1,18 +1,16 @@
 type: http_request
 model: http_request
-id: rq_BKaJpfNPCP
-createdAt: 2025-07-14T17:56:27.131512
-updatedAt: 2025-08-13T07:58:44.009746
+id: rq_w8jVKUMDyA
+createdAt: 2025-08-13T06:36:25.084121
+updatedAt: 2025-08-13T06:46:07.194696
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_QniwBWfMQd
+folderId: fl_8eNwvanSe6
 authentication: {}
 authenticationType: null
 body:
   text: |-
     {
-      "ParentID": "9b92267b-c6fb-463f-acaa-cf6547c8121a",
-      "ChildID": "21e32be2-79fd-43a0-8d69-e90acf0e75c1",
-      "OrgID": "a6ff3376-e622-47f1-8d87-bd8812d59210"
+      "member_id": "150ecfe1-a9f9-4df7-9113-54ea08724618"
     }
 bodyType: application/json
 description: ''
@@ -24,5 +22,5 @@ headers:
 method: POST
 name: Create
 sortPriority: 0.0
-url: ${[ BASE_URL ]}/api/orgs/relations
+url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}/members
 urlParameters: []

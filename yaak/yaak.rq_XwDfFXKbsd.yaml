@@ -1,10 +1,10 @@
 type: http_request
 model: http_request
-id: rq_SLUcBkGMre
-createdAt: 2025-07-14T18:06:15.506836
-updatedAt: 2025-08-13T07:58:33.021319
+id: rq_XwDfFXKbsd
+createdAt: 2025-08-13T06:25:06.573218
+updatedAt: 2025-08-13T06:36:07.833729
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_QniwBWfMQd
+folderId: fl_s8gaMkc3hy
 authentication: {}
 authenticationType: null
 body: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: DELETE
 name: Delete
-sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/orgs/relations/child-id/${[ CID ]}
+sortPriority: 2000.0
+url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/members/${[ MEMBERID ]}
 urlParameters: []
