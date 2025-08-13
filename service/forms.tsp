@@ -25,14 +25,26 @@ namespace CoreSystem.Forms {
     @doc("The description written in the form to show user info.")
     description: string;
 
+    @doc("The status of this form.")
+    status: FormStatus;
+
+    @doc("The unit this form belongs to.")
+    unitId: uuid;
+
     @doc("The user who last editted the form.")
-    lastEdit: uuid;
+    lastEditor: uuid;
 
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
 
     @doc("The last updated timestamp of the form")
     updatedAt: utcDateTime;
+  }
+
+  @doc("The current status of form ")
+  enum FormStatus {
+    draft: "draft",
+    published: "published",
   }
 
   @doc("The current types of question")
@@ -83,10 +95,28 @@ namespace CoreSystem.Forms {
     order: int32;
   }
 
-  @doc("Create a new form.")
-  @route("/forms")
-  @post
-  op createForm(@body createFormRequest: FormRequest): Form;
+  // form recipientUser
+  @doc("The basic info of a user that can receive the form.")
+  model RecipientUser {
+    id: uuid;
+    name: string;
+    organizationId?: uuid;
+    unitId?: uuid;
+  }
+
+  @doc("Select recipients by organizations and/or units.(remove duplicates).")
+  model RecipientSelectionRequest {
+    @doc("Target organization IDs to collect users from.")
+    orgIds?: uuid[];
+
+    @doc("Target unit IDs to collect users from.")
+    unitIds?: uuid[];
+  }
+
+  @doc("The result of recipients selection (no duplicated).")
+  model RecipientSelectionResponse {
+    recipients: RecipientUser[];
+  }
 
   @doc("Update an existing form by its unique identifier.")
   @route("/forms/{id}")
@@ -135,4 +165,19 @@ namespace CoreSystem.Forms {
   @route("/forms/{formId}/questions")
   @get
   op listQuestions(@path formId: uuid): Question[];
+
+  // for form publish
+  @doc("Preview recipients by orgIds/unitIds (no duplicated).")
+  @route("/forms/recipients/preview")
+  @post
+  op previewRecipients(
+    @body req: RecipientSelectionRequest,
+  ): RecipientSelectionResponse;
+
+  @doc("Publish a form. Set status to 'published', compute recipients, update inbox threads.")
+  @route("/forms/{id}/publish")
+  @post
+  op publishForm(@path id: uuid, @body req: RecipientSelectionRequest): {
+    @statusCode statusCode: 204;
+  };
 }
