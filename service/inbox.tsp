@@ -80,14 +80,6 @@ namespace CoreSystem.Inbox {
     };
   } | errorResponse;
 
-  @doc("Get the full content of a inbox message.")
-  @route("/inbox/{id}")
-  @get
-  op getInboxMessage(@path id: uuid): {
-    @statusCode statusCode: 200;
-    @body message: UserInboxMessage;
-  } | errorResponse;
-
   @doc("Update flags for the user inbox message.")
   @route("/inbox/{id}")
   @put
