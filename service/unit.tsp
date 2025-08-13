@@ -72,7 +72,7 @@ namespace CoreSystem.Unit {
   @doc("Model representing a parent-child relationship between units, allowing for hierarchical structures")
   model ParentChild {
     @doc("The unique identifier of the parent unit, which can be left null if the child is root unit of the organization.")
-    parentId: uuid;
+    parentId?: uuid;
 
     @doc("The unique identifier of the child unit")
     childId: uuid;
@@ -229,9 +229,9 @@ namespace CoreSystem.Unit {
   op addParentChild(@body Request: ParentChildRequest): ParentChild;
 
   @delete
-  @route("/orgs/relations/parent-id/{parent_id}/child-id/{child_id}")
+  @route("/orgs/relations/child-id/{child_id}")
   @doc("Remove a parent-child relationship between units by unlinking them")
-  op removeParentChild(@path parent_id: string, @path child_id: uuid): {
+  op removeParentChild(@path child_id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
