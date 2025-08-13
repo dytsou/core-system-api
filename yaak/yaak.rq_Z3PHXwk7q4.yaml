@@ -1,0 +1,27 @@
+type: http_request
+model: http_request
+id: rq_Z3PHXwk7q4
+createdAt: 2025-07-23T20:19:57.541481400
+updatedAt: 2025-07-23T20:45:37.450287500
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_rVcfbAVmZh
+authentication: {}
+authenticationType: null
+body:
+  text: |
+    {
+      "title": "Updated Form Title",
+      "description": "Updated description text."
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: pIcyTJWgRW
+method: PUT
+name: Update
+sortPriority: 2000.0
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}
+urlParameters: []

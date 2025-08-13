@@ -1,0 +1,35 @@
+type: http_request
+model: http_request
+id: rq_EPp7poNCtY
+createdAt: 2025-07-12T05:26:38.461627
+updatedAt: 2025-07-23T07:19:41.434865
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_T9fwtbfqi4
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "name": "HITCON",
+      "description": "台灣駭客年會",
+      "slug": "hitcon",
+      "metadata": {
+        "type": "conference"
+      }
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: NwZMP3jner
+method: POST
+name: Create
+sortPriority: 0.0
+url: ${[ BASE_URL ]}/api/orgs
+urlParameters:
+- enabled: true
+  name: ''
+  value: ''
+  id: MsADmZKyQ4

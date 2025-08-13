@@ -25,8 +25,11 @@ namespace CoreSystem.Forms {
     @doc("The description written in the form to show user info.")
     description: string;
 
+    @doc("The unit this form belongs to.")
+    unitId: uuid;
+
     @doc("The user who last editted the form.")
-    lastEdit: uuid;
+    lastEditor: uuid;
 
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
@@ -59,7 +62,7 @@ namespace CoreSystem.Forms {
     type: QuestionTypes;
 
     @doc("What is the question.")
-    label: string;
+    title: string;
 
     @doc("More details of this question.")
     description: string;
@@ -82,11 +85,6 @@ namespace CoreSystem.Forms {
     description: string;
     order: int32;
   }
-
-  @doc("Create a new form.")
-  @route("/forms")
-  @post
-  op createForm(@body createFormRequest: FormRequest): Form;
 
   @doc("Update an existing form by its unique identifier.")
   @route("/forms/{id}")

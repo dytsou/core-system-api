@@ -1,16 +1,17 @@
 type: http_request
 model: http_request
-id: rq_pkhAtdNVBD
-createdAt: 2025-06-28T11:55:11.019480975
-updatedAt: 2025-07-29T15:50:18.431285500
+id: rq_BKaJpfNPCP
+createdAt: 2025-07-14T17:56:27.131512
+updatedAt: 2025-07-23T07:42:06.503323
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_hdjW6KQpKD
+folderId: fl_QniwBWfMQd
 authentication: {}
 authenticationType: null
 body:
   text: |-
     {
-        "uid": "150ecfe1-a9f9-4df7-9113-54ea08724618"
+      "ParentID": "8dae2746-11b0-40d7-9135-a121c779b7f0",
+      "ChildID": "6b92e38c-3f4b-47ab-a652-204004d3f95d"
     }
 bodyType: application/json
 description: ''
@@ -18,9 +19,9 @@ headers:
 - enabled: true
   name: Content-Type
   value: application/json
-  id: rzC4u2pzHB
+  id: nccMTdixSx
 method: POST
-name: Internal Login
+name: Create
 sortPriority: 0.0
-url: ${[ BASE_URL ]}/api/auth/login/internal
+url: ${[ BASE_URL ]}/api/orgs/relations
 urlParameters: []
