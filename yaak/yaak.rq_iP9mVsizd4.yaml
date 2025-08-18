@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_iP9mVsizd4
 createdAt: 2025-07-12T07:46:39.638076
-updatedAt: 2025-08-13T07:22:44.841518
+updatedAt: 2025-08-18T15:04:56.966879467
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_ogRn6nMXtw
 authentication: {}
@@ -27,9 +27,13 @@ headers:
 method: POST
 name: Create
 sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units
+url: ${[ BASE_URL ]}/api/orgs/:slug/units
 urlParameters:
+- enabled: true
+  name: :slug
+  value: nycu-sdc
+  id: x2txENeJxZ
 - enabled: true
   name: ''
   value: ''
-  id: MsADmZKyQ4
+  id: YFGz7t6GX9
