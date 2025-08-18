@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_iP9mVsizd4
 createdAt: 2025-07-12T07:46:39.638076
-updatedAt: 2025-07-29T16:40:19.774412400
+updatedAt: 2025-08-13T07:22:44.841518
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_ogRn6nMXtw
 authentication: {}
@@ -10,8 +10,8 @@ authenticationType: null
 body:
   text: |-
     {
-      "name": "2025 Backend - 4",
-      "description": "Backend course - 4",
+      "name": "2025 Backend",
+      "description": "Backend course",
       "metadata": {
         "year": "2025",
         "type": "education program"
@@ -26,7 +26,7 @@ headers:
   id: NwZMP3jner
 method: POST
 name: Create
-sortPriority: 0.0
+sortPriority: 1000.0
 url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units
 urlParameters:
 - enabled: true
