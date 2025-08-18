@@ -6,7 +6,6 @@ using CoreSystem.Forms;
 
 @tag("Unit")
 namespace CoreSystem.Unit {
-
   @doc("Base model, containing common fields for both units and organizations.")
   model Base {
     @doc("The unit's unique identifier.")
@@ -242,7 +241,10 @@ namespace CoreSystem.Unit {
   @post
   @route("/orgs/{slug}/members")
   @doc("Add a member to an organization")
-  op addOrgMember(@path slug: string, @body Request: OrgMemberRequest): OrgMember;
+  op addOrgMember(
+    @path slug: string,
+    @body Request: OrgMemberRequest,
+  ): OrgMember;
 
   @get
   @route("/orgs/{slug}/members")
@@ -262,18 +264,25 @@ namespace CoreSystem.Unit {
   @post
   @route("/orgs/{slug}/units/{id}/members")
   @doc("Add a member to an unit")
-  op addUnitMember(@path slug: string, @path id: uuid, @body Request: UnitMemberRequest): UnitMember;
+  op addUnitMember(
+    @path slug: string,
+    @path id: uuid,
+    @body Request: UnitMemberRequest,
+  ): UnitMember;
 
   @get
   @route("/orgs/{slug}/units/{id}/members")
   @doc("List all members of a specific unit")
   op listUnitMembers(@path slug: string, @path id: uuid): User[];
 
-
   @delete
   @route("/orgs/{slug}/units/{id}/members/{member_id}")
   @doc("Remove an unit-member relationship")
-  op removeUnitMember(@path slug: string, @path id: uuid, @path member_id: uuid): {
+  op removeUnitMember(
+    @path slug: string,
+    @path id: uuid,
+    @path member_id: uuid,
+  ): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;

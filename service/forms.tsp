@@ -81,7 +81,7 @@ namespace CoreSystem.Forms {
   model QuestionRequest {
     required: boolean;
     type: QuestionTypes;
-    label: string;
+    title: string;
     description: string;
     order: int32;
   }

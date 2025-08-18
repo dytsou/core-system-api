@@ -124,10 +124,7 @@ namespace CoreSystem.Responses {
   @doc("Submit a new response to a form.")
   @route("/forms/{formId}/responses")
   @post
-  op submitFormResponse(
-    @path formId: uuid,
-    @body request: SubmitRequest,
-  ): {
+  op submitFormResponse(@path formId: uuid, @body request: SubmitRequest): {
     @statusCode statusCode: 200;
     @body response: SubmitResponse;
   } | {
