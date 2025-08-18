@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_XwDfFXKbsd
 createdAt: 2025-08-13T06:25:06.573218
-updatedAt: 2025-08-13T06:36:07.833729
+updatedAt: 2025-08-18T17:44:14.604082551
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_s8gaMkc3hy
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: DELETE
 name: Delete
 sortPriority: 2000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/members/${[ MEMBERID ]}
+url: ${[ BASE_URL ]}/api/orgs/:slug/members/:memberId
 urlParameters: []
