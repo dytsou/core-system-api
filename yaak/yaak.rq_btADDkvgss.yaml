@@ -1,0 +1,36 @@
+type: http_request
+model: http_request
+id: rq_btADDkvgss
+createdAt: 2025-08-14T04:45:05.028639
+updatedAt: 2025-08-14T07:25:11.120111
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_PajiozTTKF
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "isRead": false,
+      "isStarred": true,
+      "isArchived": false
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: EmqyUy9wGM
+method: PUT
+name: ''
+sortPriority: 1000.0
+url: ${[ BASE_URL ]}/api/inbox/:id
+urlParameters:
+- enabled: true
+  name: :id
+  value: 1c98a309-fa5c-4b5e-afbc-8ff20ec1fbcb
+  id: fn9vdnkyWu
+- enabled: true
+  name: ''
+  value: ''
+  id: mk6UnXb8eC
