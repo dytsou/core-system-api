@@ -1,0 +1,30 @@
+type: http_request
+model: http_request
+id: rq_9ifedVPm3L
+createdAt: 2025-07-23T20:53:11.646483700
+updatedAt: 2025-07-29T10:53:31.643556800
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_HGyK8hFV8U
+authentication: {}
+authenticationType: null
+body:
+  text: |-
+    {
+      "required":true,
+      "type":"short_text",
+      "label": "What's your name?",
+      "description":"Please enter your name",
+      "order":1
+    }
+bodyType: application/json
+description: ''
+headers:
+- enabled: true
+  name: Content-Type
+  value: application/json
+  id: SWFCTasA2C
+method: POST
+name: Add
+sortPriority: 0.0
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}/questions
+urlParameters: []

@@ -1,14 +1,11 @@
 import "@typespec/http";
+import "./forms.tsp";
 
 using Http;
+using CoreSystem.Forms;
 
 @tag("Unit")
 namespace CoreSystem.Unit {
-  @doc("Currently, there are 2 types of units: `unit` and `organization`.")
-  enum UnitType {
-    unit: 0,
-    organization: 1,
-  }
 
   @doc("Base model, containing common fields for both units and organizations.")
   model Base {
@@ -23,9 +20,6 @@ namespace CoreSystem.Unit {
 
     @doc("Metadata for the unit or organization, can include additional information like contact details, address, etc.")
     metadata: Record<string>;
-
-    @doc("The type of the unit, either 'unit' or 'organization'")
-    type: UnitType;
 
     @doc("The creation timestamp of the unit or organization")
     createdAt: utcDateTime;
@@ -77,21 +71,22 @@ namespace CoreSystem.Unit {
 
   @doc("Model representing a parent-child relationship between units, allowing for hierarchical structures")
   model ParentChild {
-    @doc("The unique identifier of the parent unit")
-    parentId: uuid;
+    @doc("The unique identifier of the parent unit, which can be left null if the child is root unit of the organization.")
+    parentId?: uuid;
 
     @doc("The unique identifier of the child unit")
     childId: uuid;
+
+    @doc("The unique identifier of the units' organization")
+    orgId: uuid;
   }
 
   model CreateUnitRequest {
     ...BaseRequest;
-    type: UnitType.unit;
   }
 
   model CreateOrgRequest {
     ...BaseRequest;
-    type: UnitType.organization; // Type is fixed to organization for org creation
     slug: string; // Slug is required for organizations
   }
 
@@ -105,8 +100,17 @@ namespace CoreSystem.Unit {
   }
 
   model ParentChildRequest {
-    parentId: uuid;
+    parentId?: uuid; // Optional, if not provided, the child will be added to the root of the organization
     childId: uuid;
+    orgId: uuid;
+  }
+
+  model OrgMemberRequest {
+    memberId: uuid;
+  }
+
+  model UnitMemberRequest {
+    memberId: uuid;
   }
 
   // --- CRUD Operations for Orgs and Units ---
@@ -225,12 +229,69 @@ namespace CoreSystem.Unit {
   op addParentChild(@body Request: ParentChildRequest): ParentChild;
 
   @delete
-  @route("/orgs/relations/parent-id/{parent_id}/child-id/{child_id}")
+  @route("/orgs/relations/child-id/{child_id}")
   @doc("Remove a parent-child relationship between units by unlinking them")
-  op removeParentChild(@path parent_id: string, @path child_id: uuid): {
+  op removeParentChild(@path child_id: uuid): {
     @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
     @body error: string;
   };
+
+  // --- Member CRUD ---
+  @post
+  @route("/orgs/{slug}/members")
+  @doc("Add a member to an organization")
+  op addOrgMember(@path slug: string, @body Request: OrgMemberRequest): OrgMember;
+
+  @get
+  @route("/orgs/{slug}/members")
+  @doc("List all members of an organization")
+  op listOrgMembers(@path slug: string): User[];
+
+  @delete
+  @route("/orgs/{slug}/members/{member_id}")
+  @doc("Remove an organization-member relationship")
+  op removeOrgMember(@path slug: string, @path member_id: uuid): {
+    @statusCode statusCode: 204;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: string;
+  };
+
+  @post
+  @route("/orgs/{slug}/units/{id}/members")
+  @doc("Add a member to an unit")
+  op addUnitMember(@path slug: string, @path id: uuid, @body Request: UnitMemberRequest): UnitMember;
+
+  @get
+  @route("/orgs/{slug}/units/{id}/members")
+  @doc("List all members of a specific unit")
+  op listUnitMembers(@path slug: string, @path id: uuid): User[];
+
+
+  @delete
+  @route("/orgs/{slug}/units/{id}/members/{member_id}")
+  @doc("Remove an unit-member relationship")
+  op removeUnitMember(@path slug: string, @path id: uuid, @path member_id: uuid): {
+    @statusCode statusCode: 204;
+  } | {
+    @statusCode statusCode: 404;
+    @body error: string;
+  };
+
+  // --- Creation and List forms under Unit ---
+  @doc("Create a new form under a unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @post
+  op createUnitForm(
+    @path slug: string,
+    @path unitId: uuid,
+    @body createFormRequest: FormRequest,
+  ): Form;
+
+  @doc("List forms under a specific unit.")
+  @route("/orgs/{slug}/units/{unitId}/forms")
+  @get
+  op listFormsByUnit(@path slug: string, @path unitId: uuid): Form[];
 }

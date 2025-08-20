@@ -1,10 +1,10 @@
 type: http_request
 model: http_request
-id: rq_eQD5yvhXjM
-createdAt: 2025-07-14T18:03:16.979560
-updatedAt: 2025-08-13T06:35:15.758470
+id: rq_roRMxQTRv2
+createdAt: 2025-07-23T20:45:28.984698200
+updatedAt: 2025-07-23T20:49:15.435771100
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_ogRn6nMXtw
+folderId: fl_rVcfbAVmZh
 authentication: {}
 authenticationType: null
 body: {}
@@ -12,7 +12,7 @@ bodyType: null
 description: ''
 headers: []
 method: GET
-name: GetSubUnitIDs
+name: Get one Form
 sortPriority: 4000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}/subunit-ids
+url: ${[ BASE_URL ]}/api/forms/${[ formId ]}
 urlParameters: []
