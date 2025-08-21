@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_P7x9vHD7K6
 createdAt: 2025-08-13T03:28:00.561462
-updatedAt: 2025-08-13T06:36:07.831186
+updatedAt: 2025-08-18T17:44:05.135797052
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_s8gaMkc3hy
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: GET
 name: List
 sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/members
+url: ${[ BASE_URL ]}/api/orgs/:slug/members
 urlParameters: []

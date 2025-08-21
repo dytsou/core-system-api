@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_9ifedVPm3L
 createdAt: 2025-07-23T20:53:11.646483700
-updatedAt: 2025-07-29T10:53:31.643556800
+updatedAt: 2025-08-18T16:16:55.244104813
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_HGyK8hFV8U
 authentication: {}
@@ -12,9 +12,9 @@ body:
     {
       "required":true,
       "type":"short_text",
-      "label": "What's your name?",
+      "title": "What's your name?",
       "description":"Please enter your name",
-      "order":1
+      "order":2
     }
 bodyType: application/json
 description: ''
@@ -26,5 +26,13 @@ headers:
 method: POST
 name: Add
 sortPriority: 0.0
-url: ${[ BASE_URL ]}/api/forms/${[ formId ]}/questions
-urlParameters: []
+url: ${[ BASE_URL ]}/api/forms/:formId/questions
+urlParameters:
+- enabled: true
+  name: :formId
+  value: 434e34b5-6fe2-4bdf-87ca-edcc498113de
+  id: a2snqRZd0D
+- enabled: true
+  name: ''
+  value: ''
+  id: tcQtDYzfiD

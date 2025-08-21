@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_EPp7poNCtY
 createdAt: 2025-07-12T05:26:38.461627
-updatedAt: 2025-07-23T07:19:41.434865
+updatedAt: 2025-08-18T15:03:24.396107623
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_T9fwtbfqi4
 authentication: {}
@@ -10,11 +10,11 @@ authenticationType: null
 body:
   text: |-
     {
-      "name": "HITCON",
-      "description": "台灣駭客年會",
-      "slug": "hitcon",
+      "name": "NYCU SDC",
+      "description": "陽明交大軟體開發社",
+      "slug": "nycu-sdc",
       "metadata": {
-        "type": "conference"
+        "type": "club"
       }
     }
 bodyType: application/json
