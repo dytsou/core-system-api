@@ -2,6 +2,7 @@ import "@typespec/http";
 import "@typespec/openapi";
 
 using Http;
+using CoreSystem.Forms;
 
 @tag("Inbox")
 namespace CoreSystem.Inbox {
@@ -12,6 +13,9 @@ namespace CoreSystem.Inbox {
 
     @doc("The inbox message this user inbox message refers to.")
     message: InboxMessage;
+
+    @doc("The full content of inbox_message.")
+    content?: Form;
 
     @doc("The type of the user inbox message.")
     type: UserInboxMessageFilters;
