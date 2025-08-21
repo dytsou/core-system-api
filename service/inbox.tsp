@@ -17,8 +17,8 @@ namespace CoreSystem.Inbox {
     @doc("The full content of inbox_message.")
     content?: Form;
 
-    @doc("The type of the user inbox message.")
-    type: UserInboxMessageFilters;
+    @doc("The filters of the user inbox message.")
+    filters: UserInboxMessageFilters;
   }
 
   @doc("The filters that can be applied by the user for their inbox messages.")
@@ -82,6 +82,16 @@ namespace CoreSystem.Inbox {
       pageSize: int32;
       hasNextPage: boolean;
     };
+  } | errorResponse;
+
+  @doc("Get the user inbox message by its unique identifier.")
+  @route("/inbox/{id}")
+  @get
+  op getInboxMessage(
+    @path id: uuid,
+  ): {
+    @statusCode statusCode: 200;
+    @body message: UserInboxMessage;
   } | errorResponse;
 
   @doc("Update flags for the user inbox message.")
