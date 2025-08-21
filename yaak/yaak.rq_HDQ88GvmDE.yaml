@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_HDQ88GvmDE
 createdAt: 2025-07-14T17:51:31.957481
-updatedAt: 2025-08-13T06:35:15.761147
+updatedAt: 2025-08-18T16:32:47.648301481
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_ogRn6nMXtw
 authentication: {}
@@ -14,5 +14,5 @@ headers: []
 method: DELETE
 name: Delete
 sortPriority: 6000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}
+url: ${[ BASE_URL ]}/api/orgs/:slug/units/:unitId
 urlParameters: []
