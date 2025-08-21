@@ -77,7 +77,7 @@ namespace CoreSystem.Forms {
     type: QuestionTypes;
 
     @doc("What is the question.")
-    label: string;
+    title: string;
 
     @doc("More details of this question.")
     description: string;
