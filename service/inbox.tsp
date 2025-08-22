@@ -6,8 +6,20 @@ using CoreSystem.Forms;
 
 @tag("Inbox")
 namespace CoreSystem.Inbox {
-  @doc("The structure of a user inbox message with customized flag.")
+  @doc("The structure of a user inbox message.")
   model UserInboxMessage {
+    @doc("The id of this UserInboxMessage.")
+    id: uuid;
+
+    @doc("The inbox message this user inbox message refers to.")
+    message: InboxMessage;
+
+    @doc("The filters of the user inbox message.")
+    filters: UserInboxMessageFilters;
+  }
+
+  @doc("The deatil structure of a user inbox message with content.")
+  model UserInboxMessageDetail {
     @doc("The id of this UserInboxMessage.")
     id: uuid;
 
@@ -87,11 +99,9 @@ namespace CoreSystem.Inbox {
   @doc("Get the user inbox message by its unique identifier.")
   @route("/inbox/{id}")
   @get
-  op getInboxMessage(
-    @path id: uuid,
-  ): {
+  op getInboxMessage(@path id: uuid): {
     @statusCode statusCode: 200;
-    @body message: UserInboxMessage;
+    @body message: UserInboxMessageDetail;
   } | errorResponse;
 
   @doc("Update flags for the user inbox message.")
