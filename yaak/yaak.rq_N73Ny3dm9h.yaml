@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_N73Ny3dm9h
 createdAt: 2025-08-13T03:27:23.839238
-updatedAt: 2025-08-13T06:42:38.903282
+updatedAt: 2025-08-18T17:43:58.023913797
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_s8gaMkc3hy
 authentication: {}
@@ -22,5 +22,5 @@ headers:
 method: POST
 name: Create
 sortPriority: 0.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/members
+url: ${[ BASE_URL ]}/api/orgs/:slug/members
 urlParameters: []
