@@ -1,10 +1,10 @@
 type: http_request
 model: http_request
-id: rq_HVRY4qeJmy
-createdAt: 2025-07-14T17:43:02.400756
-updatedAt: 2025-08-18T16:33:10.897703309
+id: rq_XwDfFXKbsd
+createdAt: 2025-08-13T06:25:06.573218
+updatedAt: 2025-08-18T17:44:14.604082551
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_T9fwtbfqi4
+folderId: fl_s8gaMkc3hy
 authentication: {}
 authenticationType: null
 body: {}
@@ -13,6 +13,6 @@ description: ''
 headers: []
 method: DELETE
 name: Delete
-sortPriority: 6000.0
-url: ${[ BASE_URL ]}/api/orgs/:slug
+sortPriority: 2000.0
+url: ${[ BASE_URL ]}/api/orgs/:slug/members/:memberId
 urlParameters: []

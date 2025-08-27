@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_Z3PHXwk7q4
 createdAt: 2025-07-23T20:19:57.541481400
-updatedAt: 2025-07-23T20:45:37.450287500
+updatedAt: 2025-08-18T15:16:35.228503546
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_rVcfbAVmZh
 authentication: {}
@@ -23,5 +23,13 @@ headers:
 method: PUT
 name: Update
 sortPriority: 2000.0
-url: ${[ BASE_URL ]}/api/forms/${[ formId ]}
-urlParameters: []
+url: ${[ BASE_URL ]}/api/forms/:formId
+urlParameters:
+- enabled: true
+  name: :formId
+  value: 1e084cf0-e68a-4968-8429-99064c8f629c
+  id: 0KfBk6ynu5
+- enabled: true
+  name: ''
+  value: ''
+  id: wRzwFU7MWZ

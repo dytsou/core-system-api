@@ -1,10 +1,10 @@
 type: http_request
 model: http_request
-id: rq_8wYUu55Hra
-createdAt: 2025-07-23T20:54:02.476828900
-updatedAt: 2025-08-18T16:16:46.383751906
+id: rq_zm97syGC2o
+createdAt: 2025-08-13T05:44:56.207948804
+updatedAt: 2025-08-18T16:27:54.029471122
 workspaceId: wk_YSMg2nYXEU
-folderId: fl_HGyK8hFV8U
+folderId: fl_PePGxmrGBg
 authentication: {}
 authenticationType: null
 body: {}
@@ -14,13 +14,17 @@ headers: []
 method: GET
 name: List
 sortPriority: 1000.0
-url: ${[ BASE_URL ]}/api/forms/:formId/questions
+url: ${[ BASE_URL ]}/api/forms/:formId/responses
 urlParameters:
 - enabled: true
   name: :formId
   value: 434e34b5-6fe2-4bdf-87ca-edcc498113de
-  id: 2RDskHvzw8
+  id: EqHDtJRSU0
+- enabled: true
+  name: :responseId
+  value: ff268167-4f30-4e88-925b-3e5d7e2a0e00
+  id: YsjEwyk3xT
 - enabled: true
   name: ''
   value: ''
-  id: JjB3kZ4nvY
+  id: wmJrXhv8E4

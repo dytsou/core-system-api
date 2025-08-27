@@ -14,8 +14,8 @@ namespace CoreSystem.Inbox {
     @doc("The inbox message this user inbox message refers to.")
     message: InboxMessage;
 
-    @doc("The filters of the user inbox message.")
-    filters: UserInboxMessageFilters;
+    @doc("The type of the user inbox message.")
+    type: UserInboxMessageFilters;
   }
 
   @doc("The deatil structure of a user inbox message with content.")
@@ -29,8 +29,8 @@ namespace CoreSystem.Inbox {
     @doc("The full content of inbox_message.")
     content?: Form;
 
-    @doc("The filters of the user inbox message.")
-    filters: UserInboxMessageFilters;
+    @doc("The type of the user inbox message.")
+    type: UserInboxMessageFilters;
   }
 
   @doc("The filters that can be applied by the user for their inbox messages.")

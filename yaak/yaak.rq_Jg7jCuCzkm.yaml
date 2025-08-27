@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_Jg7jCuCzkm
 createdAt: 2025-07-29T15:54:50.581535500
-updatedAt: 2025-07-29T16:40:19.832141700
+updatedAt: 2025-08-18T16:16:01.714090595
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_ogRn6nMXtw
 authentication: {}
@@ -22,6 +22,18 @@ headers:
   id: MxWspimSNg
 method: POST
 name: CreateFormUnderUnit
-sortPriority: 6000.0
-url: ${[ BASE_URL ]}/api/orgs/${[ SLUG ]}/units/${[ UNITID ]}/forms
-urlParameters: []
+sortPriority: 7000.0
+url: ${[ BASE_URL ]}/api/orgs/:slug/units/:unitId/forms
+urlParameters:
+- enabled: true
+  name: :slug
+  value: nycu-sdc
+  id: HWXq2A3Y7I
+- enabled: true
+  name: :unitId
+  value: dc6ab2cc-6c57-46c0-8a4d-dad2eeb12293
+  id: jpArSVh5j0
+- enabled: true
+  name: ''
+  value: ''
+  id: CZBmHdQvfQ

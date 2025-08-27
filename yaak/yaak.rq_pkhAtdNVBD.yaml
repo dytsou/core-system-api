@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_pkhAtdNVBD
 createdAt: 2025-06-28T11:55:11.019480975
-updatedAt: 2025-07-29T15:50:18.431285500
+updatedAt: 2025-08-18T16:14:36.544311294
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_hdjW6KQpKD
 authentication: {}
@@ -10,7 +10,7 @@ authenticationType: null
 body:
   text: |-
     {
-        "uid": "150ecfe1-a9f9-4df7-9113-54ea08724618"
+        "uid": "92ff1f6d-18a0-4909-85e4-0709aab44fe6"
     }
 bodyType: application/json
 description: ''

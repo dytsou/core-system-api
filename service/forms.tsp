@@ -25,6 +25,9 @@ namespace CoreSystem.Forms {
     @doc("The description written in the form to show user info.")
     description: string;
 
+    @doc("The status of this form.")
+    status: FormStatus;
+
     @doc("The unit this form belongs to.")
     unitId: uuid;
 
@@ -38,6 +41,12 @@ namespace CoreSystem.Forms {
     updatedAt: utcDateTime;
   }
 
+  @doc("The current status of form ")
+  enum FormStatus {
+    draft: "draft",
+    published: "published",
+  }
+
   @doc("The current types of question")
   enum QuestionTypes {
     shortText: "short_text",
@@ -45,6 +54,21 @@ namespace CoreSystem.Forms {
     singleChoice: "single_choice",
     multipleChoice: "multiple_choice",
     date: "date",
+  }
+
+  @doc("A choice option for creating/updating choice-based questions.")
+  model ChoiceOption {
+    @doc("The name/text of the choice option.")
+    name: string;
+  }
+
+  @doc("A choice with ID and name for choice-based questions.")
+  model Choice {
+    @doc("The unique identifier of the choice.")
+    id: uuid;
+
+    @doc("The name/text of the choice.")
+    name: string;
   }
 
   @doc("The structure of a question.")
@@ -70,6 +94,9 @@ namespace CoreSystem.Forms {
     @doc("What is the number of this question in the form.")
     order: int32;
 
+    @doc("Available choices for single_choice and multiple_choice questions.")
+    choices?: Choice[];
+
     @doc("The creation timestamp of the question.")
     createdAt: utcDateTime;
 
@@ -79,11 +106,46 @@ namespace CoreSystem.Forms {
 
   @doc("The request body for creating/updating a question.")
   model QuestionRequest {
+    @doc("Whether the question is required to answer or not.")
     required: boolean;
+
+    @doc("The type of the question.")
     type: QuestionTypes;
-    label: string;
+
+    @doc("What is the question.")
+    title: string;
+
+    @doc("More details of this question.")
     description: string;
+
+    @doc("What is the number of this question in the form.")
     order: int32;
+
+    @doc("Available choice options for single_choice and multiple_choice questions.")
+    choices?: ChoiceOption[];
+  }
+
+  // form recipientUser
+  @doc("The basic info of a user that can receive the form.")
+  model RecipientUser {
+    id: uuid;
+    name: string;
+    organizationId?: uuid;
+    unitId?: uuid;
+  }
+
+  @doc("Select recipients by organizations and/or units.(remove duplicates).")
+  model RecipientSelectionRequest {
+    @doc("Target organization IDs to collect users from.")
+    orgIds?: uuid[];
+
+    @doc("Target unit IDs to collect users from.")
+    unitIds?: uuid[];
+  }
+
+  @doc("The result of recipients selection (no duplicated).")
+  model RecipientSelectionResponse {
+    recipients: RecipientUser[];
   }
 
   @doc("Update an existing form by its unique identifier.")
@@ -133,4 +195,19 @@ namespace CoreSystem.Forms {
   @route("/forms/{formId}/questions")
   @get
   op listQuestions(@path formId: uuid): Question[];
+
+  // for form publish
+  @doc("Preview recipients by orgIds/unitIds (no duplicated).")
+  @route("/forms/recipients/preview")
+  @post
+  op previewRecipients(
+    @body req: RecipientSelectionRequest,
+  ): RecipientSelectionResponse;
+
+  @doc("Publish a form. Set status to 'published', compute recipients, update inbox threads.")
+  @route("/forms/{id}/publish")
+  @post
+  op publishForm(@path id: uuid, @body req: RecipientSelectionRequest): {
+    @statusCode statusCode: 204;
+  };
 }
