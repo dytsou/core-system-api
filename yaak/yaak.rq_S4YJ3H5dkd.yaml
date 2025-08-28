@@ -1,0 +1,54 @@
+type: http_request
+model: http_request
+id: rq_S4YJ3H5dkd
+createdAt: 2025-08-14T04:45:43.589317
+updatedAt: 2025-08-15T05:06:51.534197
+workspaceId: wk_YSMg2nYXEU
+folderId: fl_PajiozTTKF
+authentication: {}
+authenticationType: null
+body: {}
+bodyType: null
+description: ''
+headers:
+- enabled: true
+  name: Accept
+  value: application/json
+  id: RfnN5AR0PV
+- enabled: true
+  name: Authorization
+  value: Bearer
+  id: UZhHxybSQh
+- enabled: true
+  name: ''
+  value: ''
+  id: Fp5B6ddnGx
+method: GET
+name: BASE_URL/api/inbox
+sortPriority: 0.0
+url: ${[ BASE_URL ]}/api/inbox
+urlParameters:
+- enabled: true
+  name: isRead
+  value: 'false'
+  id: pBuJAQrKaT
+- enabled: true
+  name: isStarred
+  value: 'false'
+  id: RMXutqZiwn
+- enabled: true
+  name: isArchived
+  value: 'false'
+  id: qzMIjqPa6D
+- enabled: true
+  name: page
+  value: '1'
+  id: 7nsSykXNVz
+- enabled: true
+  name: size
+  value: '10'
+  id: Uywxb5pVRy
+- enabled: true
+  name: ''
+  value: ''
+  id: Qq69CJNJyW
