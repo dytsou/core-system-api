@@ -130,14 +130,12 @@ namespace CoreSystem.Forms {
   model RecipientUser {
     id: uuid;
     name: string;
-    organizationId?: uuid;
-    unitId?: uuid;
   }
 
   @doc("Select recipients by organizations and/or units.(remove duplicates).")
   model RecipientSelectionRequest {
-    @doc("Target organization IDs to collect users from.")
-    orgIds?: uuid[];
+    @doc("Target organization ID to collect users from.")
+    orgId?: uuid;
 
     @doc("Target unit IDs to collect users from.")
     unitIds?: uuid[];
