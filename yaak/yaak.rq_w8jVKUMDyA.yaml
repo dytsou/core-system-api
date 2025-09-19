@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_w8jVKUMDyA
 createdAt: 2025-08-13T06:36:25.084121
-updatedAt: 2025-08-18T17:43:28.824804203
+updatedAt: 2025-09-16T07:19:01.441282480
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_8eNwvanSe6
 authentication: {}
@@ -10,7 +10,7 @@ authenticationType: null
 body:
   text: |-
     {
-      "member_id": "150ecfe1-a9f9-4df7-9113-54ea08724618"
+      "member_id": "14a9fc49-0b84-499e-aa4b-e2d8c4f6a461"
     }
 bodyType: application/json
 description: ''
@@ -23,4 +23,16 @@ method: POST
 name: Create
 sortPriority: 0.0
 url: ${[ BASE_URL ]}/api/orgs/:slug/units/:unitId/members
-urlParameters: []
+urlParameters:
+- enabled: true
+  name: :slug
+  value: nycu-sdc
+  id: ekuSK5Qrq6
+- enabled: true
+  name: :unitId
+  value: 9a843aa0-8451-4e3b-b6a0-8c0e994e9040
+  id: EiBcItkUjj
+- enabled: true
+  name: ''
+  value: ''
+  id: ZtzWJU3VxX

@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_S4YJ3H5dkd
 createdAt: 2025-08-14T04:45:43.589317
-updatedAt: 2025-08-15T05:06:51.534197
+updatedAt: 2025-09-14T08:18:24.591172996
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_PajiozTTKF
 authentication: {}
@@ -24,7 +24,7 @@ headers:
   value: ''
   id: Fp5B6ddnGx
 method: GET
-name: BASE_URL/api/inbox
+name: List
 sortPriority: 0.0
 url: ${[ BASE_URL ]}/api/inbox
 urlParameters:
