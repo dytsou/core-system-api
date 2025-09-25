@@ -176,13 +176,19 @@ namespace CoreSystem.Unit {
 
   @post
   @route("/orgs")
-  @doc("Create a new unit or organization")
-  op createOrg(@body Request: CreateOrgRequest): Organization;
+  @doc("Create a new organization")
+  op createOrg(@body Request: CreateOrgRequest): {
+    @statusCode statusCode: 201;
+    @body organization: Organization;
+  };
 
   @post
   @route("/orgs/{slug}/units")
-  @doc("Create a new unit or organization")
-  op createUnit(@path slug: string, @body Request: CreateUnitRequest): Unit;
+  @doc("Create a new unit")
+  op createUnit(@path slug: string, @body Request: CreateUnitRequest): {
+    @statusCode statusCode: 201;
+    @body unit: Unit;
+  };
 
   @put
   @route("/orgs/{slug}")
@@ -225,7 +231,10 @@ namespace CoreSystem.Unit {
   @post
   @route("/orgs/relations")
   @doc("Create a new parent-child relationship between units by linking them")
-  op addParentChild(@body Request: ParentChildRequest): ParentChild;
+  op addParentChild(@body Request: ParentChildRequest): {
+    @statusCode statusCode: 201;
+    @body parentChild: ParentChild;
+  };
 
   @delete
   @route("/orgs/relations/child-id/{child_id}")
@@ -244,7 +253,10 @@ namespace CoreSystem.Unit {
   op addOrgMember(
     @path slug: string,
     @body Request: OrgMemberRequest,
-  ): OrgMember;
+  ): {
+    @statusCode statusCode: 201;
+    @body orgMember: OrgMember;
+  };
 
   @get
   @route("/orgs/{slug}/members")
@@ -268,7 +280,10 @@ namespace CoreSystem.Unit {
     @path slug: string,
     @path id: uuid,
     @body Request: UnitMemberRequest,
-  ): UnitMember;
+  ): {
+    @statusCode statusCode: 201;
+    @body unitMember: UnitMember;
+  };
 
   @get
   @route("/orgs/{slug}/units/{id}/members")
@@ -297,7 +312,10 @@ namespace CoreSystem.Unit {
     @path slug: string,
     @path unitId: uuid,
     @body createFormRequest: FormRequest,
-  ): Form;
+  ): {
+    @statusCode statusCode: 201;
+    @body form: Form;
+  };
 
   @doc("List forms under a specific unit.")
   @route("/orgs/{slug}/units/{unitId}/forms")

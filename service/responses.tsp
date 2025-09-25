@@ -125,7 +125,7 @@ namespace CoreSystem.Responses {
   @route("/forms/{formId}/responses")
   @post
   op submitFormResponse(@path formId: uuid, @body request: SubmitRequest): {
-    @statusCode statusCode: 200;
+    @statusCode statusCode: 201;
     @body response: SubmitResponse;
   } | {
     @statusCode statusCode: 404;
@@ -161,7 +161,7 @@ namespace CoreSystem.Responses {
   @route("/forms/{formId}/responses/{responseId}")
   @delete
   op deleteFormResponse(@path formId: uuid, @path responseId: uuid): {
-    @statusCode statusCode: 200;
+    @statusCode statusCode: 204;
   } | {
     @statusCode statusCode: 404;
     @body error: NotFound;
