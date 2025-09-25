@@ -171,7 +171,10 @@ namespace CoreSystem.Forms {
   @doc("Create a new question for a specific form.")
   @route("/forms/{formId}/questions")
   @post
-  op createQuestion(@path formId: uuid, @body q: QuestionRequest): Question;
+  op createQuestion(@path formId: uuid, @body q: QuestionRequest): {
+    @statusCode statusCode: 201;
+    @body question: Question;
+  };
 
   @doc("Update an existing question by its unique identifier.")
   @route("/forms/{formId}/questions/{questionId}")
@@ -206,6 +209,6 @@ namespace CoreSystem.Forms {
   @route("/forms/{id}/publish")
   @post
   op publishForm(@path id: uuid, @body req: RecipientSelectionRequest): {
-    @statusCode statusCode: 204;
+    @statusCode statusCode: 200;
   };
 }
