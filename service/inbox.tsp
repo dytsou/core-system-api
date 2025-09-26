@@ -64,6 +64,9 @@ namespace CoreSystem.Inbox {
     @doc("The type of the content.")
     type: contentType;
 
+    @doc("(Optional) Preview text. For forms: uses form.previewMessage if set, otherwise first 25 chars of form.description. For text: uses provided preview message if set, otherwise first 25 chars of content.")
+    previewMessage: string;
+
     @doc("(Optional) The identifier of the content referenced by the contentType.")
     contentId?: uuid;
 
