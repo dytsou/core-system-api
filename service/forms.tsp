@@ -15,6 +15,9 @@ namespace CoreSystem.Forms {
 
     @doc("(Optional) Preview text for the form. If not provided, fallback to first 25 characters of description.")
     previewMessage?: string;
+    
+    @doc("(Optional) Deadline for form completion.")
+    deadline?: utcDateTime;
   }
 
   @doc("The structure of a form.")
@@ -39,6 +42,9 @@ namespace CoreSystem.Forms {
 
     @doc("The user who last editted the form.")
     lastEditor: uuid;
+
+    @doc("(Optional) Deadline for form completion. If not specified, returns null.")
+    deadline?: utcDateTime;
 
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
