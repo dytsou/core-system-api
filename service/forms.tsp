@@ -13,6 +13,9 @@ namespace CoreSystem.Forms {
     @doc("The description of the form.")
     description: string;
 
+    @doc("(Optional) Preview text for the form. If not provided, fallback to first 25 characters of description.")
+    previewMessage?: string;
+    
     @doc("(Optional) Deadline for form completion.")
     deadline?: utcDateTime;
   }
@@ -27,6 +30,9 @@ namespace CoreSystem.Forms {
 
     @doc("The description written in the form to show user info.")
     description: string;
+
+    @doc("(Optional) Preview text for the form. If not provided, fallback to first 25 characters of description.")
+    previewMessage?: string;
 
     @doc("The status of this form.")
     status: FormStatus;
