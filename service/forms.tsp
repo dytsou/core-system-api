@@ -12,6 +12,9 @@ namespace CoreSystem.Forms {
 
     @doc("The description of the form.")
     description: string;
+
+    @doc("(Optional) Deadline for form completion.")
+    deadline?: utcDateTime;
   }
 
   @doc("The structure of a form.")
@@ -33,6 +36,9 @@ namespace CoreSystem.Forms {
 
     @doc("The user who last editted the form.")
     lastEditor: uuid;
+
+    @doc("(Optional) Deadline for form completion. If not specified, returns null.")
+    deadline?: utcDateTime;
 
     @doc("The creation timestamp of the form.")
     createdAt: utcDateTime;
