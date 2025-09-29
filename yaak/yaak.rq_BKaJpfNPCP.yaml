@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_BKaJpfNPCP
 createdAt: 2025-07-14T17:56:27.131512
-updatedAt: 2025-08-18T15:05:50.208522934
+updatedAt: 2025-09-27T19:36:21.079683718
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_QniwBWfMQd
 authentication: {}
@@ -10,9 +10,9 @@ authenticationType: null
 body:
   text: |-
     {
-      "ParentID": "9b92267b-c6fb-463f-acaa-cf6547c8121a",
-      "ChildID": "21e32be2-79fd-43a0-8d69-e90acf0e75c1",
-      "OrgID": "a6ff3376-e622-47f1-8d87-bd8812d59210"
+      "parent_id": "3c5fa073-7b97-43a3-bc44-ddc98f390a08",
+      "child_id": "d26e9c90-4747-496b-9953-7e7c4f97643f",
+      "org_id": "3c5fa073-7b97-43a3-bc44-ddc98f390a08"
     }
 bodyType: application/json
 description: ''
