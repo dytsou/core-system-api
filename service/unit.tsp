@@ -250,10 +250,7 @@ namespace CoreSystem.Unit {
   @post
   @route("/orgs/{slug}/members")
   @doc("Add a member to an organization")
-  op addOrgMember(
-    @path slug: string,
-    @body Request: OrgMemberRequest,
-  ): {
+  op addOrgMember(@path slug: string, @body Request: OrgMemberRequest): {
     @statusCode statusCode: 201;
     @body orgMember: OrgMember;
   };
