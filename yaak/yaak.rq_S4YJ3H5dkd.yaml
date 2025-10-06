@@ -2,7 +2,7 @@ type: http_request
 model: http_request
 id: rq_S4YJ3H5dkd
 createdAt: 2025-08-14T04:45:43.589317
-updatedAt: 2025-09-14T08:18:24.591172996
+updatedAt: 2025-10-06T14:07:41.885745
 workspaceId: wk_YSMg2nYXEU
 folderId: fl_PajiozTTKF
 authentication: {}
@@ -49,6 +49,14 @@ urlParameters:
   value: '10'
   id: Uywxb5pVRy
 - enabled: true
+  name: search
+  value: dinner
+  id: zHYa3M8jss
+- enabled: true
+  name: unitIds
+  value: example,example2
+  id: rKbe5ExwIm
+- enabled: true
   name: ''
   value: ''
-  id: Qq69CJNJyW
+  id: iWVSZpW5mi

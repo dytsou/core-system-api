@@ -83,6 +83,8 @@ namespace CoreSystem.Inbox {
     @query isRead?: boolean = false,
     @query isStarred?: boolean = false,
     @query isArchived?: boolean = false,
+    @query search?: string,
+    @query unitIds?: uuid[],
     @query @pageIndex page?: int32 = 1,
     @query @pageSize size?: int32 = 10,
   ): {
