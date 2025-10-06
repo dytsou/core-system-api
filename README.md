@@ -1,58 +1,59 @@
 # Core System API
 
-This repository contains the TypeSpec API definitions for Core System.
+Core System 的 API 文件。
 
-## API Documentation
+> [English Version](README.en.md)
 
-- [Swagger UI](https://nycu-sdc.github.io/core-system-api/index.html)
-- [Redocly](https://nycu-sdc.github.io/core-system-api/redocly.html)
+## 依賴套件
 
-## Prerequisites
+請先安裝 [Node.js](https://nodejs.org/) 與 [pnpm](https://pnpm.io/)。
 
-- Node.js and npm
-- TypeSpec compiler (`@typespec/compiler`)
-
-## Installation
+pnpm 安裝方式：
 
 ```bash
-# Install TypeSpec compiler globally
-npm install -g @typespec/compiler
-
-# Install project dependencies
-tsp install
+npm install --global corepack@latest
+corepack enable pnpm
 ```
 
-## Build Commands
+## 安裝套件
 
-The project includes a Makefile with the following commands:
-
-### Format Check
 ```bash
-make format
+pnpm i
 ```
 
-### Compilation
+## 編譯
+
+編輯完之後需要進行編譯才能預覽。
+
 ```bash
-make compile
+pnpm build
 ```
 
-### Cleanup
+### 格式檢查
+
 ```bash
-make clean
+pnpm format
 ```
 
-### Full Build
+### 編譯
+
 ```bash
-make
+pnpm compile
 ```
 
-## Output
+### 清理已編譯文件
 
-The compilation process generates OpenAPI specification in the `tsp-output/schema/openapi.yaml` file.
+```bash
+pnpm clean
+```
 
-## GitHub Actions
+## 輸出文件
 
-This project includes GitHub Actions workflow that:
-1. Checks TypeSpec formatting
-2. Compiles TypeSpec to OpenAPI
-3. Generates and deploys Swagger UI documentation to GitHub Pages
+輸出的文件會在 `tsp-output/schema/openapi.yaml`。你可以使用以下方式進行預覽：
+
+-   [Swagger UI](https://nycu-sdc.github.io/core-system-api/) - 直接打開底下的 [swagger-ui.html](swagger-ui.html) 檔案即可。
+-   [Prism](https://prismjs.com/) - 用於 API 文件的預覽和測試。執行 `pnpm start` 後，打開 <http://localhost:4010> 即可。
+
+## Yaak 在幹嘛？
+
+目前 Yaak 不會從 TypeSpec 抓資料，請單獨編輯維護。
