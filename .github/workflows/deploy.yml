@@ -26,13 +26,21 @@ jobs:
               run: pnpm install --frozen-lockfile
 
             - name: Build
-              run: pnpm build
+              run: |
+                  pnpm build
+
+            - name: Generate Redocly and Swagger UI
+              run: |
+                  npm i -g @redocly/cli@latest
+                  redocly build-docs tsp-output/schema/openapi.1.0.0.yaml --output redocly.html
 
             - name: Move files
               run: |
                   mkdir -p publish/tsp-output/schema
                   mv tsp-output/schema/openapi.1.0.0.yaml publish/tsp-output/schema/openapi.1.0.0.yaml
                   mv swagger-ui.html publish/index.html
+                  mkdir -p publish/redocly
+                  mv redocly.html publish/redocly/index.html
 
             - name: Deploy to GitHub Pages
               uses: peaceiris/actions-gh-pages@v4
