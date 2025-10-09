@@ -1,59 +1,59 @@
 # Core System API
 
-Core System 的 API 文件。
+This repository contains the TypeSpec API definitions for Core System.
 
-> [English Version](README.en.md)
+> [Chinese Version](README.md)
 
-## 依賴套件
+## Prerequisites
 
-請先安裝 [Node.js](https://nodejs.org/) 與 [pnpm](https://pnpm.io/)。
+Please install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) first.
 
-pnpm 安裝方式：
+> pnpm Installation:
+>
+> ```bash
+> npm install --global corepack@latest
+> corepack enable pnpm
+> ```
 
-```bash
-npm install --global corepack@latest
-corepack enable pnpm
-```
-
-## 安裝套件
+## Installation
 
 ```bash
 pnpm i
 ```
 
-## 編譯
+## Build Commands
 
-編輯完之後需要進行編譯才能預覽。
+Compile the TypeSpec files after editing.
 
 ```bash
 pnpm build
 ```
 
-### 格式檢查
+### Format Check
 
 ```bash
 pnpm format
 ```
 
-### 編譯
+### Compilation
 
 ```bash
 pnpm compile
 ```
 
-### 清理已編譯文件
+### Cleanup
 
 ```bash
 pnpm clean
 ```
 
-## 輸出文件
+## Output
 
-輸出的文件會在 `tsp-output/schema/openapi.yaml`。你可以使用以下方式進行預覽：
+The compilation process generates OpenAPI specification in the `tsp-output/schema/openapi.yaml` file. You can preview it using:
 
--   [Swagger UI](https://nycu-sdc.github.io/core-system-api/) - 直接打開底下的 [swagger-ui.html](swagger-ui.html) 檔案即可。
--   [Prism](https://prismjs.com/) - 用於 API 文件的預覽和測試。執行 `pnpm start` 後，打開 <http://localhost:4010> 即可。
+-   [Swagger UI](https://nycu-sdc.github.io/core-system-api/) - Just open the [swagger-ui.html](swagger-ui.html) file below.
+-   [Prism](https://prismjs.com/) - For API documentation preview and testing. Run `pnpm start` and open <http://localhost:4010>.
 
-## Yaak 在幹嘛？
+## What is Yaak doing?
 
-目前 Yaak 不會從 TypeSpec 抓資料，請單獨編輯維護。
+Currently Yaak does not fetch data from TypeSpec, please maintain it separately.
