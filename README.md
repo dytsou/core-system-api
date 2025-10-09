@@ -2,57 +2,58 @@
 
 This repository contains the TypeSpec API definitions for Core System.
 
-## API Documentation
-
-- [Swagger UI](https://nycu-sdc.github.io/core-system-api/index.html)
-- [Redocly](https://nycu-sdc.github.io/core-system-api/redocly.html)
+> [Chinese Version](README.md)
 
 ## Prerequisites
 
-- Node.js and npm
-- TypeSpec compiler (`@typespec/compiler`)
+Please install [Node.js](https://nodejs.org/) and [pnpm](https://pnpm.io/) first.
+
+> pnpm Installation:
+>
+> ```bash
+> npm install --global corepack@latest
+> corepack enable pnpm
+> ```
 
 ## Installation
 
 ```bash
-# Install TypeSpec compiler globally
-npm install -g @typespec/compiler
-
-# Install project dependencies
-tsp install
+pnpm i
 ```
 
 ## Build Commands
 
-The project includes a Makefile with the following commands:
+Compile the TypeSpec files after editing.
+
+```bash
+pnpm build
+```
 
 ### Format Check
+
 ```bash
-make format
+pnpm format
 ```
 
 ### Compilation
+
 ```bash
-make compile
+pnpm compile
 ```
 
 ### Cleanup
-```bash
-make clean
-```
 
-### Full Build
 ```bash
-make
+pnpm clean
 ```
 
 ## Output
 
-The compilation process generates OpenAPI specification in the `tsp-output/schema/openapi.yaml` file.
+The compilation process generates OpenAPI specification in the `tsp-output/schema/openapi.yaml` file. You can preview it using:
 
-## GitHub Actions
+-   [Swagger UI](https://nycu-sdc.github.io/core-system-api/) - Just open the [swagger-ui.html](swagger-ui.html) file below.
+-   [Prism](https://prismjs.com/) - For API documentation preview and testing. Run `pnpm start` and open <http://localhost:4010>.
 
-This project includes GitHub Actions workflow that:
-1. Checks TypeSpec formatting
-2. Compiles TypeSpec to OpenAPI
-3. Generates and deploys Swagger UI documentation to GitHub Pages
+## What is Yaak doing?
+
+Currently Yaak does not fetch data from TypeSpec, please maintain it separately.
