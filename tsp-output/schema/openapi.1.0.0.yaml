@@ -80,6 +80,36 @@ paths:
                   $ref: '#/components/schemas/Forms.Form'
       tags:
         - Forms
+  /api/forms/google-sheet-email:
+    get:
+      operationId: Forms_getGoogleSheetEmail
+      description: Get the Gmail address that should be added to Google Sheet permissions. This address needs to be granted access to the Google Sheet so the system can modify the form.
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.GoogleSheetEmailResponse'
+      tags:
+        - Forms
+  /api/forms/me:
+    get:
+      operationId: Unit_listFormsOfCurrentUser
+      description: List all forms of current user
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Unit.UserForm'
+      tags:
+        - Unit
   /api/forms/recipients/preview:
     post:
       operationId: Forms_previewRecipients
@@ -100,135 +130,10 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Forms.RecipientSelectionRequest'
-  /api/forms/{formId}/questions:
-    post:
-      operationId: Forms_createQuestion
-      description: Create a new question for a specific form.
-      parameters:
-        - name: formId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '201':
-          description: The request has succeeded and a new resource has been created as a result.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forms.Question'
-      tags:
-        - Forms
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Forms.QuestionRequest'
-    get:
-      operationId: Forms_listQuestions
-      description: List all the questions of a specific form.
-      parameters:
-        - name: formId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Forms.Question'
-      tags:
-        - Forms
-  /api/forms/{formId}/questions/{questionId}:
-    put:
-      operationId: Forms_updateQuestion
-      description: Update an existing question by its unique identifier.
-      parameters:
-        - name: formId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-        - name: questionId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forms.Question'
-      tags:
-        - Forms
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Forms.QuestionRequest'
-    delete:
-      operationId: Forms_deleteQuestion
-      description: Delete an existing question by its unique identifier.
-      parameters:
-        - name: formId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-        - name: questionId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-      tags:
-        - Forms
-    get:
-      operationId: Responses_getQuestionAnswers
-      description: Get all answers for a specific question across all form responses.
-      parameters:
-        - name: formId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-        - name: questionId
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Responses.AnswersForQuestionResponse'
-        '404':
-          description: The server cannot find the requested resource.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NotFound'
-      tags:
-        - Responses
   /api/forms/{formId}/responses:
     post:
-      operationId: Responses_submitFormResponse
-      description: Submit a new response to a form.
+      operationId: Responses_createFormResponse
+      description: Create a new response of a form.
       parameters:
         - name: formId
           in: path
@@ -241,13 +146,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Responses.SubmitResponse'
-        '400':
-          description: The server could not understand the request due to invalid syntax.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ProblemDetail'
+                $ref: '#/components/schemas/Responses.CreateResponse'
         '404':
           description: The server cannot find the requested resource.
           content:
@@ -256,12 +155,6 @@ paths:
                 $ref: '#/components/schemas/NotFound'
       tags:
         - Responses
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Responses.SubmitRequest'
     get:
       operationId: Responses_listFormResponses
       description: List all responses for a specific form.
@@ -398,10 +291,10 @@ paths:
                 $ref: '#/components/schemas/Forms.Form'
       tags:
         - Forms
-  /api/forms/{id}/publish:
+  /api/forms/{id}/cover:
     post:
-      operationId: Forms_publishForm
-      description: Publish a form. Set status to 'published', compute recipients, update inbox threads.
+      operationId: Forms_uploadFormCoverImage
+      description: 'Upload a cover image for a form. The frontend should send images in WebP format with max-width/height: 1800px and quality 80%.'
       parameters:
         - name: id
           in: path
@@ -411,14 +304,55 @@ paths:
       responses:
         '200':
           description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.FormCoverUploadResponse'
       tags:
         - Forms
       requestBody:
         required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
-              $ref: '#/components/schemas/Forms.RecipientSelectionRequest'
+              $ref: '#/components/schemas/Forms.FormCoverUploadRequest'
+    get:
+      operationId: Forms_getFormCoverImage
+      description: Get the cover image binary data. Returns the image in WebP format.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            image/webp:
+              schema:
+                contentMediaType: image/webp
+      tags:
+        - Forms
+  /api/forms/{id}/publish:
+    post:
+      operationId: Forms_publishForm
+      description: Publish a form. Set status to 'published'.
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.FormPublishResponse'
+      tags:
+        - Forms
   /api/healthz:
     get:
       operationId: Healthz_checkHealthz
@@ -645,6 +579,22 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/Unit.CreateOrgRequest'
+  /api/orgs/me:
+    get:
+      operationId: Unit_listOrganizationsOfCurrentUser
+      description: List all organizations of current user
+      parameters: []
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Unit.Organization'
+      tags:
+        - Unit
   /api/orgs/relations:
     post:
       operationId: Unit_addParentChild
@@ -749,6 +699,51 @@ paths:
                 type: string
       tags:
         - Unit
+  /api/orgs/{slug}/forms:
+    post:
+      operationId: Unit_createOrgForm
+      description: Create a new form under an organization.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Unit
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.FormRequest'
+    get:
+      operationId: Unit_listFormsByOrg
+      description: List forms under a specific organization.
+      parameters:
+        - name: slug
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Forms.Form'
+      tags:
+        - Unit
   /api/orgs/{slug}/history:
     get:
       operationId: Slug_getSlugHistory
@@ -800,7 +795,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Unit.OrgMember'
+                $ref: '#/components/schemas/Unit.OrgMemberResponse'
       tags:
         - Unit
       requestBody:
@@ -1036,90 +1031,6 @@ paths:
                 type: string
       tags:
         - Unit
-  /api/orgs/{slug}/units/{id}/members:
-    post:
-      operationId: Unit_addUnitMember
-      description: Add a member to an unit
-      parameters:
-        - name: slug
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '201':
-          description: The request has succeeded and a new resource has been created as a result.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Unit.UnitMember'
-      tags:
-        - Unit
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/Unit.UnitMemberRequest'
-    get:
-      operationId: Unit_listUnitMembers
-      description: List all members of a specific unit
-      parameters:
-        - name: slug
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '200':
-          description: The request has succeeded.
-          content:
-            application/json:
-              schema:
-                type: array
-      tags:
-        - Unit
-  /api/orgs/{slug}/units/{id}/members/{member_id}:
-    delete:
-      operationId: Unit_removeUnitMember
-      description: Remove an unit-member relationship
-      parameters:
-        - name: slug
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-        - name: member_id
-          in: path
-          required: true
-          schema:
-            $ref: '#/components/schemas/uuid'
-      responses:
-        '204':
-          description: 'There is no content to send for this request, but the headers may be useful. '
-        '404':
-          description: The server cannot find the requested resource.
-          content:
-            text/plain:
-              schema:
-                type: string
-      tags:
-        - Unit
   /api/orgs/{slug}/units/{id}/subunit-ids:
     get:
       operationId: Unit_listUnitSubUnitIds
@@ -1186,46 +1097,33 @@ paths:
                   $ref: '#/components/schemas/Unit.Unit'
       tags:
         - Unit
-  /api/orgs/{slug}/units/{unitId}/forms:
-    post:
-      operationId: Unit_createUnitForm
-      description: Create a new form under a unit.
+  /api/responses/{responseId}/answers:
+    patch:
+      operationId: Responses_updateFormResponse
+      description: Update answers for the response.
       parameters:
-        - name: slug
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: unitId
+        - name: responseId
           in: path
           required: true
           schema:
             $ref: '#/components/schemas/uuid'
       responses:
-        '201':
-          description: The request has succeeded and a new resource has been created as a result.
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Forms.Form'
+        '200':
+          description: The request has succeeded.
       tags:
-        - Unit
+        - Responses
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Forms.FormRequest'
+              $ref: '#/components/schemas/Responses.AnswersRequestUpdate'
+  /api/responses/{responseId}/sections:
     get:
-      operationId: Unit_listFormsByUnit
-      description: List forms under a specific unit.
+      operationId: Responses_listResponseSections
+      description: List the form structure of the response.
       parameters:
-        - name: slug
-          in: path
-          required: true
-          schema:
-            type: string
-        - name: unitId
+        - name: responseId
           in: path
           required: true
           schema:
@@ -1236,11 +1134,134 @@ paths:
           content:
             application/json:
               schema:
+                $ref: '#/components/schemas/Responses.ListSectionResponse'
+        '404':
+          description: The server cannot find the requested resource.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NotFound'
+      tags:
+        - Responses
+  /api/responses/{responseId}/submit:
+    post:
+      operationId: Responses_submitFormResponse
+      description: Submit all the answer in the form response.
+      parameters:
+        - name: responseId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Responses.AnswersRequest'
+      tags:
+        - Responses
+  /api/sections/{sectionId}/questions:
+    post:
+      operationId: Forms_createQuestion
+      description: Create a new question for a specific section.
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '201':
+          description: The request has succeeded and a new resource has been created as a result.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.QuestionResponse'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.QuestionRequest'
+    get:
+      operationId: Forms_listQuestions
+      description: List all the questions of a specific section.
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+        - name: responseId
+          in: query
+          required: false
+          schema:
+            $ref: '#/components/schemas/uuid'
+          explode: false
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/Forms.Form'
+                  $ref: '#/components/schemas/Forms.QuestionResponse'
       tags:
-        - Unit
+        - Forms
+  /api/sections/{sectionId}/questions/{questionId}:
+    put:
+      operationId: Forms_updateQuestion
+      description: Update an existing question by its unique identifier.
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '200':
+          description: The request has succeeded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Forms.QuestionResponse'
+      tags:
+        - Forms
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Forms.QuestionRequest'
+    delete:
+      operationId: Forms_deleteQuestion
+      description: Delete an existing question by its unique identifier.
+      parameters:
+        - name: sectionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+        - name: questionId
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/uuid'
+      responses:
+        '204':
+          description: 'There is no content to send for this request, but the headers may be useful. '
+      tags:
+        - Forms
   /api/users/me:
     get:
       operationId: User_getMe
@@ -1296,6 +1317,9 @@ components:
         name:
           type: string
           description: The name/text of the choice.
+        description:
+          type: string
+          description: Optional description for the choice.
       description: A choice with ID and name for choice-based questions.
     Forms.ChoiceOption:
       type: object
@@ -1305,6 +1329,9 @@ components:
         name:
           type: string
           description: The name/text of the choice option.
+        description:
+          type: string
+          description: Optional description for the choice.
       description: A choice option for creating/updating choice-based questions.
     Forms.Form:
       type: object
@@ -1316,6 +1343,8 @@ components:
         - status
         - unitId
         - lastEditor
+        - messageAfterSubmission
+        - visibility
         - createdAt
         - updatedAt
       properties:
@@ -1348,6 +1377,27 @@ components:
           type: string
           format: date-time
           description: (Optional) Deadline for form completion. If not specified, returns null.
+        publishTime:
+          type: string
+          format: date-time
+          description: When the form is available to be filled.
+        messageAfterSubmission:
+          type: string
+          description: The message to show after user's submission.
+        dressing:
+          allOf:
+            - $ref: '#/components/schemas/Forms.FormDressing'
+          description: The dressing of the form.
+        coverImage:
+          type: string
+          description: The full URL to access the cover image.
+        googleSheetUrl:
+          type: string
+          description: The google sheet url this from's responses will be sent to.
+        visibility:
+          allOf:
+            - $ref: '#/components/schemas/Forms.FormVisibility'
+          description: The visibility setting of the form. Public forms are visible to all logged-in users. Private forms require a direct link to access.
         createdAt:
           type: string
           format: date-time
@@ -1357,11 +1407,62 @@ components:
           format: date-time
           description: The last updated timestamp of the form
       description: The structure of a form.
+    Forms.FormCoverUploadRequest:
+      type: object
+      properties:
+        coverImage: {}
+      required:
+        - coverImage
+    Forms.FormCoverUploadResponse:
+      type: object
+      required:
+        - imageUrl
+      properties:
+        imageUrl:
+          type: string
+          description: The temporary full URL of the uploaded image.
+      description: Response after uploading a cover image.
+    Forms.FormDressing:
+      type: object
+      properties:
+        color:
+          type: string
+          description: 'Color in hex format (e.g., #0066cc)'
+        headerFont:
+          type: string
+          description: Header font id from https://font.emtech.cc/list
+        questionFont:
+          type: string
+          description: Question font id from https://font.emtech.cc/list
+        textFont:
+          type: string
+          description: Text font id from https://font.emtech.cc/list
+      description: The appearance/dressing configuration for a form.
+      examples:
+        - color: '#0066cc'
+          headerFont: LINESeedTW
+          questionFont: LINESeedTW
+          textFont: LINESeedTW
+    Forms.FormPublishResponse:
+      type: object
+      required:
+        - url
+        - visibility
+      properties:
+        url:
+          type: string
+          description: The URL to access the published form.
+        visibility:
+          allOf:
+            - $ref: '#/components/schemas/Forms.FormVisibility'
+          description: The visibility setting of the form. Public forms are visible to all logged-in users. Private forms require a direct link to access.
+      description: Response after publishing a form.
     Forms.FormRequest:
       type: object
       required:
         - title
         - description
+        - messageAfterSubmission
       properties:
         title:
           type: string
@@ -1376,68 +1477,71 @@ components:
           type: string
           format: date-time
           description: (Optional) Deadline for form completion.
+        publishTime:
+          type: string
+          format: date-time
+          description: When the form is available to be filled.
+        messageAfterSubmission:
+          type: string
+          description: The message to show after user's submission.
+        dressing:
+          allOf:
+            - $ref: '#/components/schemas/Forms.FormDressing'
+          description: The dressing of the form.
+        coverImage:
+          type: string
+          description: The image path returned by the upload API.
+        googleSheetUrl:
+          type: string
+          description: The google sheet url this from's responses will be sent to.
+        visibility:
+          allOf:
+            - $ref: '#/components/schemas/Forms.FormVisibility'
+          description: The visibility setting of the form. Public forms are visible to all logged-in users. Private forms require a direct link to access.
       description: The request body for creating/updating a form.
       examples:
         - title: Enter SDC Form
           description: If you want to join us, just fill in this form!
+          messageAfterSubmission: Thank you for your submission!
     Forms.FormStatus:
       type: string
       enum:
-        - draft
-        - published
+        - DRAFT
+        - PUBLISHED
       description: 'The current status of form '
-    Forms.Question:
+    Forms.FormVisibility:
+      type: string
+      enum:
+        - public
+        - private
+      description: The visibility setting of a form. Public forms are visible to all logged-in users. Private forms require a direct link to access.
+    Forms.GoogleSheetEmailResponse:
       type: object
       required:
-        - id
-        - formId
-        - required
-        - type
-        - title
-        - description
-        - order
-        - createdAt
-        - updatedAt
+        - email
       properties:
-        id:
+        email:
+          type: string
+          description: The Gmail address that should be added to Google Sheet permissions so the system can modify the form.
+      description: Response containing the Gmail address for Google Sheet permissions.
+    Forms.NextSectionResponse:
+      type: object
+      required:
+        - hasNext
+      properties:
+        nextSectionId:
           allOf:
             - $ref: '#/components/schemas/uuid'
-          description: The question's unique identifier.
-        formId:
-          allOf:
-            - $ref: '#/components/schemas/uuid'
-          description: "The form's id that the question belongs to. "
-        required:
+          description: The ID of the next section to navigate to.
+        hasNext:
           type: boolean
-          description: Whether the question is required to answer or not.
-        type:
-          allOf:
-            - $ref: '#/components/schemas/Forms.QuestionTypes'
-          description: The type of the question.
-        title:
-          type: string
-          description: What is the question.
-        description:
-          type: string
-          description: More details of this question.
-        order:
-          type: integer
-          format: int32
-          description: What is the number of this question in the form.
-        choices:
+          description: If false, there is no next section, ready to submit.
+        questions:
           type: array
           items:
-            $ref: '#/components/schemas/Forms.Choice'
-          description: Available choices for single_choice and multiple_choice questions.
-        createdAt:
-          type: string
-          format: date-time
-          description: The creation timestamp of the question.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The updated timestamp of the question.
-      description: The structure of a question.
+            $ref: '#/components/schemas/Forms.QuestionResponse'
+          description: The questions in the next section.
+      description: The response for next section after completing current section.
     Forms.QuestionRequest:
       type: object
       required:
@@ -1469,10 +1573,20 @@ components:
           items:
             $ref: '#/components/schemas/Forms.ChoiceOption'
           description: Available choice options for single_choice and multiple_choice questions.
+        sourceQuestionId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: If set, choices are dynamically generated from answers to this question.
       description: The request body for creating/updating a question.
       examples:
         - required: true
-          type: multiple_choice
+          type: MULTIPLE_CHOICE
+          title: Program Match
+          description: Sort the following programs based on your preference.
+          order: 3
+          sourceQuestionId: d290f1ee-6c54-4b01-90e6-d701748f0851
+        - required: true
+          type: MULTIPLE_CHOICE
           title: Which team you want to join???
           description: Pick one of your favorite!!!
           order: 2
@@ -1481,18 +1595,74 @@ components:
             - name: Clustron Team
             - name: HPC Team
         - required: true
-          type: short_text
+          type: SHORT_TEXT
           title: What's your name?
           description: Please enter your name
-          order: 2
+          order: 1
+    Forms.QuestionResponse:
+      type: object
+      required:
+        - id
+        - sectionId
+        - required
+        - type
+        - title
+        - description
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The question's unique identifier.
+        sectionId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The section's id that the question belongs to.
+        required:
+          type: boolean
+          description: Whether the question is required to answer or not.
+        type:
+          allOf:
+            - $ref: '#/components/schemas/Forms.QuestionTypes'
+          description: The type of the question.
+        title:
+          type: string
+          description: What is the question.
+        description:
+          type: string
+          description: More details of this question.
+        choices:
+          type: array
+          items:
+            $ref: '#/components/schemas/Forms.Choice'
+          description: Available choices for single_choice and multiple_choice questions.
+        sourceQuestionId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: If set, choices are dynamically generated from answers to this question.
+        createdAt:
+          type: string
+          format: date-time
+          description: The creation timestamp of the question.
+        updatedAt:
+          type: string
+          format: date-time
+          description: The updated timestamp of the question.
+      description: Response model for the detailed structure of a question.
     Forms.QuestionTypes:
       type: string
       enum:
-        - short_text
-        - long_text
-        - single_choice
-        - multiple_choice
-        - date
+        - SHORT_TEXT
+        - LONG_TEXT
+        - SINGLE_CHOICE
+        - MULTIPLE_CHOICE
+        - DROPDOWN
+        - DETAILED_MULTIPLE_CHOICE
+        - DATE
+        - UPLOAD_FILE
+        - LINEAR_SCALE
+        - RANKING
       description: The current types of question
     Forms.RecipientSelectionRequest:
       type: object
@@ -1531,6 +1701,39 @@ components:
         name:
           type: string
       description: The basic info of a user that can receive the form.
+    Forms.Section:
+      type: object
+      required:
+        - id
+        - formId
+        - title
+        - progress
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: Unique identifier.
+        formId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The form this section belongs to.
+        title:
+          type: string
+          description: Section title (e.g., 'Group Info').
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/Forms.SectionProgress'
+          description: The progress of this section.
+        description:
+          type: string
+          description: Section description.
+      description: A section within a form, grouping questions together.
+    Forms.SectionProgress:
+      type: string
+      enum:
+        - DRAFT
+        - SUBMITTED
+      description: The current progress of a section
     Inbox.InboxFormMessage:
       type: object
       required:
@@ -1745,7 +1948,7 @@ components:
           format: date-time
           description: The last updated timestamp of the answer.
       description: Response model for a single answer in question answers view
-    Responses.AnswerRequest:
+    Responses.AnswerJSON:
       type: object
       required:
         - questionId
@@ -1772,7 +1975,7 @@ components:
       properties:
         question:
           allOf:
-            - $ref: '#/components/schemas/Forms.Question'
+            - $ref: '#/components/schemas/Forms.QuestionResponse'
           description: The question details.
         answers:
           type: array
@@ -1780,20 +1983,65 @@ components:
             $ref: '#/components/schemas/Responses.AnswerForQuestionResponse'
           description: All answers for this question.
       description: Response model for getting all answers for a specific question
-    Responses.GetResponse:
+    Responses.AnswersRequest:
+      type: object
+      required:
+        - answers
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Responses.AnswerJSON'
+          description: The answers to be saved. Can contain a partial subset for drafts or the full set for submission.
+      description: Request model for update or submit the form response.
+      examples:
+        - answers:
+            - questionId: ee894524-4bd8-4a64-8fd2-a53b39ca94cd
+              value: John Doe
+            - questionId: 2b2bc4f4-71c1-478b-9e36-516eac6b36c3
+              value: f421cfc2-2b84-4da9-9629-011af609935a;2ca86a6d-7735-4f17-8676-29b4724b524f
+    Responses.AnswersRequestUpdate:
+      type: object
+      properties:
+        answers:
+          type: array
+          items:
+            $ref: '#/components/schemas/Responses.AnswerJSON'
+          description: The answers to be saved. Can contain a partial subset for drafts or the full set for submission.
+      description: Request model for update or submit the form response.
+      examples:
+        - answers:
+            - questionId: ee894524-4bd8-4a64-8fd2-a53b39ca94cd
+              value: John Doe
+            - questionId: 2b2bc4f4-71c1-478b-9e36-516eac6b36c3
+              value: f421cfc2-2b84-4da9-9629-011af609935a;2ca86a6d-7735-4f17-8676-29b4724b524f
+    Responses.CreateResponse:
       type: object
       required:
         - id
-        - formId
-        - submittedBy
-        - questionAnswerPairs
-        - createdAt
-        - updatedAt
       properties:
         id:
           allOf:
             - $ref: '#/components/schemas/uuid'
           description: The response's unique identifier.
+      description: Response model for creating a form response
+    Responses.GetResponse:
+      type: object
+      required:
+        - id
+        - progress
+        - formId
+        - submittedBy
+        - questionAnswerPairs
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The response's unique identifier.
+        progress:
+          allOf:
+            - $ref: '#/components/schemas/Responses.ResponseProgress'
+          description: The current answering progress of the response.
         formId:
           allOf:
             - $ref: '#/components/schemas/uuid'
@@ -1805,16 +2053,8 @@ components:
         questionAnswerPairs:
           type: array
           items:
-            $ref: '#/components/schemas/Responses.QuestionAnswerForGetResponse'
+            $ref: '#/components/schemas/Responses.PreviewSection'
           description: All questions with their answers for this response.
-        createdAt:
-          type: string
-          format: date-time
-          description: The creation timestamp of the response.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The last updated timestamp of the response.
       description: Response model for getting a specific form response
     Responses.ListResponse:
       type: object
@@ -1832,20 +2072,52 @@ components:
             $ref: '#/components/schemas/Responses.ResponseJSON'
           description: All responses for this form.
       description: Response model for listing all responses of a form
-    Responses.QuestionAnswerForGetResponse:
+    Responses.ListSectionResponse:
       type: object
       required:
-        - questionId
+        - sections
+      properties:
+        sections:
+          type: array
+          items:
+            $ref: '#/components/schemas/Responses.ResponseSections'
+          description: The section list of the response.
+      description: Response model for listing all sections of a response
+      examples:
+        - sections:
+            - id: a1b2c3d4-e5f6-7890-abcd-ef1234567890
+              title: Group Info
+            - id: 0f9e8d7c-6b5a-4321-0fed-cba987654321
+              title: Self Introduction
+    Responses.PreviewQuestion:
+      type: object
+      required:
+        - question
         - answer
       properties:
-        questionId:
+        question:
           allOf:
-            - $ref: '#/components/schemas/uuid'
+            - $ref: '#/components/schemas/Forms.QuestionResponse'
           description: The question details.
         answer:
           type: string
           description: The answer value.
-      description: Response model for a question with its answer
+      description: Model for a question with its answer in preview view
+    Responses.PreviewSection:
+      type: object
+      required:
+        - sectionTitle
+        - questionAnswerPairs
+      properties:
+        sectionTitle:
+          type: string
+          description: The section title.
+        questionAnswerPairs:
+          type: array
+          items:
+            $ref: '#/components/schemas/Responses.PreviewQuestion'
+          description: All questions with their answers in this section.
+      description: Model for a single section in preview view
     Responses.ResponseJSON:
       type: object
       required:
@@ -1871,48 +2143,26 @@ components:
           format: date-time
           description: The last updated timestamp of the response.
       description: Response model for a single response in list view
-    Responses.SubmitRequest:
-      type: object
-      required:
-        - answers
-      properties:
-        answers:
-          type: array
-          items:
-            $ref: '#/components/schemas/Responses.AnswerRequest'
-          description: All answers for this form submission.
-      description: Request model for submitting a complete form response
-      examples:
-        - answers:
-            - questionId: ee894524-4bd8-4a64-8fd2-a53b39ca94cd
-              value: John Doe
-            - questionId: 2b2bc4f4-71c1-478b-9e36-516eac6b36c3
-              value: f421cfc2-2b84-4da9-9629-011af609935a;2ca86a6d-7735-4f17-8676-29b4724b524f
-    Responses.SubmitResponse:
+    Responses.ResponseProgress:
+      type: string
+      enum:
+        - DRAFT
+        - SUBMITTED
+      description: The current progress of the response.
+    Responses.ResponseSections:
       type: object
       required:
         - id
-        - formId
-        - createdAt
-        - updatedAt
+        - title
       properties:
         id:
           allOf:
             - $ref: '#/components/schemas/uuid'
-          description: The response's unique identifier.
-        formId:
-          allOf:
-            - $ref: '#/components/schemas/uuid'
-          description: The form that this response belongs to.
-        createdAt:
+          description: Unique identifier.
+        title:
           type: string
-          format: date-time
-          description: The creation timestamp of the response.
-        updatedAt:
-          type: string
-          format: date-time
-          description: The last updated timestamp of the response.
-      description: Response model for a submitted form response
+          description: Section title (e.g., 'Group Info').
+      description: Response model for a single section in response sections view
     Slug.History:
       type: object
       required:
@@ -2110,6 +2360,21 @@ components:
           type: string
       examples:
         - email: 123@gmail.com
+    Unit.OrgMemberResponse:
+      type: object
+      required:
+        - orgId
+        - member
+      properties:
+        orgId:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The unique identifier of the organization
+        member:
+          allOf:
+            - $ref: '#/components/schemas/User.User'
+          description: Full user details including emails
+      description: Response model for organization member with full user details
     Unit.Organization:
       type: object
       required:
@@ -2215,30 +2480,6 @@ components:
           type: string
           format: date-time
           description: The last updated timestamp of the unit or organization
-    Unit.UnitMember:
-      type: object
-      required:
-        - unitId
-        - memberId
-      properties:
-        unitId:
-          allOf:
-            - $ref: '#/components/schemas/uuid'
-          description: The unique identifier of the unit
-        memberId:
-          allOf:
-            - $ref: '#/components/schemas/uuid'
-          description: The unique identifier of the member
-      description: Model representing a member of a unit, linking unit and member by their unique identifiers
-    Unit.UnitMemberRequest:
-      type: object
-      required:
-        - email
-      properties:
-        email:
-          type: string
-      examples:
-        - email: 123@gmail.com
     Unit.UpdateOrgRequest:
       type: object
       required:
@@ -2278,6 +2519,36 @@ components:
           unevaluatedProperties:
             type: string
           description: Metadata for the unit or organization, can include additional information like contact details, address, etc.
+    Unit.UserForm:
+      type: object
+      required:
+        - id
+        - title
+        - deadline
+        - status
+      properties:
+        id:
+          allOf:
+            - $ref: '#/components/schemas/uuid'
+          description: The unique identifier of the form
+        title:
+          type: string
+          description: The title of the form
+        deadline:
+          type: string
+          format: date-time
+          description: The deadline of the form
+        status:
+          allOf:
+            - $ref: '#/components/schemas/Unit.UserFormStatus'
+          description: The completion status of the form for the current user
+      description: Response model for listing user forms with status
+    Unit.UserFormStatus:
+      type: string
+      enum:
+        - in_progress
+        - completed
+      description: The completion status of the form for the user
     User.Role:
       type: string
       enum:
@@ -2289,6 +2560,7 @@ components:
         - username
         - name
         - avatarUrl
+        - emails
         - roles
       properties:
         id:
@@ -2304,6 +2576,11 @@ components:
         avatarUrl:
           type: string
           description: Avatar URL of the user.
+        emails:
+          type: array
+          items:
+            type: string
+          description: Email addresses associated with the user.
         roles:
           type: array
           items:
@@ -2317,6 +2594,6 @@ components:
       type: string
       format: uuid
 servers:
-  - url: https://example.com
-    description: Single server endpoint
+  - url: https://dev.core-system.sdc.nycu.club
+    description: Core System server endpoint
     variables: {}
